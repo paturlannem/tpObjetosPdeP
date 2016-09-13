@@ -11,6 +11,8 @@ class Sims{
 	var estaEnPareja
 	var suPareja
 	
+	//Para el sexo usamos true=hombre, false= mujer
+	
 	constructor(unSexo, unaEdad, unNivelDeFelicidad, listaDeAmigos, unaPersonalidad, cantDinero, unSexoDePreferencia){
 		sexo = unSexo
 		edad = unaEdad
