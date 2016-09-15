@@ -1,0 +1,72 @@
+import sims.*
+import personalidades.*
+
+//assert.equals( A, a probar que es A)
+//assert.that(algo que esperamos V)
+//assert.notThat(algo que esperamos F)
+
+object fixture{
+	method unSimSinAmigos(){
+		return new Sims(true, 20, 100, [], buenazo, 0, false)
+	}
+	
+	method unSimInteresado(){
+		return new Sims(true, 32, 60, [], interesado, 100, false)
+	}
+	
+	method unSimBuenazo(){
+		return new Sims(false, 15, 90, [], buenazo, 50, true)
+	}
+	
+	method unSimSuperficial(){
+		return new Sims(false, 34, 80, [], superficial, 80, true)
+	}
+	
+	method unSimPeleadoConLaVida(){
+		return new Sims(true, 55, 10, [], peleadoConLaVida, 20, false)
+	}
+	
+	method unSimConAmigos(){
+		return new Sims(true, 34, 100, [self.unSimSuperficial(), self.unSimBuenazo(), self.unSimSinAmigos(), self.unSimInteresado()], buenazo, 40, false)
+	}
+	
+	method unSimConPopularidad20(){
+		return new Sims(true, 55, 10, [self.unSimPeleadoConLaVida(), self.unSimPeleadoConLaVida()], peleadoConLaVida, 20, false)
+	}
+	
+	method unSimConFelicidad100(){
+		return new Sims(true, 55, 100, [], buenazo, 20, false)
+	}
+}
+
+test "Agrego un amigo a un sim"{
+	var simSolitario = fixture.unSimSinAmigos()
+	var otroSim = fixture.unSimInteresado()
+	simSolitario.agregarAmigo(otroSim)
+	assert.equals(1, simSolitario.listaDeAmigos().size())
+}
+
+test "Calcula bien la popularidad de un sim"{
+	var unSim = fixture.unSimConPopularidad20()
+	assert.equals(20, unSim.popularidad())
+}
+
+test "Valora bien el amigo interesado"{
+	var unSim = fixture.unSimConAmigos()
+	assert.equals(23, interesado.obtenerValoracionDeAlguien(unSim))
+}
+
+test "Valora bien el amigo superficial"{
+	var unSim = fixture.unSimConPopularidad20()
+	assert.equals(400, superficial.obtenerValoracionDeAlguien(unSim))
+}
+
+test "Valora bien el amigo buenazo"{
+	var unSim = fixture.unSimConFelicidad100()
+	assert.equals(50, buenazo.obtenerValoracionDeAlguien(unSim))
+}
+
+test "Valora bien el amigo peleadoConLaVida"{
+	var unSim = fixture.unSimSinAmigos()
+	assert.equals(0, peleadoConLaVida.obtenerValoracionDeAlguien(unSim))
+}

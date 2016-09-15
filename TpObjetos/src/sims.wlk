@@ -37,7 +37,7 @@ class Sims{
 		return nivelDeFelicidad
 	}
 	
-	method amigos(){
+	method listaDeAmigos(){
 		return amigos
 	}
 	
@@ -126,7 +126,7 @@ class Sims{
 	}
 	
 	method unirAmigos(unSim){
-		amigos = (self.amigos() + unSim.amigos()).asSet().asList() 
+		amigos = (self.listaDeAmigos() + unSim.amigos()).asSet().asList() 
 	}
 	
 	method enRelacionCon(unSim){
