@@ -10,6 +10,7 @@ class Sims{
 	var sexoDePreferencia
 	var estaEnPareja
 	var suPareja
+	var trabajo
 	
 	//Para el sexo usamos true=hombre, false= mujer
 	
@@ -47,6 +48,10 @@ class Sims{
 	
 	method dinero(){
 		return dinero
+	}
+	
+	method trabajo(){
+		return trabajo
 	}
 	
 	//SETTERS
@@ -148,6 +153,38 @@ class Sims{
 			unSim.romperRelacion()
 		}
 	}
+		method aumentarDinero(unaCantidadDeDinero){
+		dinero += unaCantidadDeDinero
+	}
+	
+	//method dineroDeMercenario(){		
+	//	var dinerilloExtra = (dinero *2)/100 + 100
+	//	unSim.aumentarDinero(dinerilloExtra)		
+	//}
+	
+	//method aumentarFelicidadEn10Porciento(){
+	//	felicidad += (felicidad*10)/100
+	//}	
+	
+	method trabajaConTodosSusAmigos(){}
+	
+	method dineroYTrabajo(unSim){
+		if (unSim.personalidad() == "copado" ){
+			unSim.aumentarFelicidadEn(5) and
+			unSim.aumentarDinero(100)
+		}
+		else if (unSim.personalidad() == "mercenario" ){
+			unSim.dineroDeMercenario()
+		}
+		else if (unSim.personalidad() == "aburrido" ){
+			unSim.aumentarFelicidadEn(-5) and
+			unSim.aumentarDinero(100)
+		}
+		and if(unSim.personalidad() == "buenazo" and unSim.trabajaConTodosSusAmigos()){
+			unSim.aumentarFelicidadEnDiezPorciento()
+		}	
+	}
+	
 }
 
 object martin inherits Sims(true, 24, 100, [], buenazo, 10, false){}
