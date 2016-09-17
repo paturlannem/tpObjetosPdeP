@@ -44,3 +44,21 @@ object peleadoConLaVida{
 		return alguien.nivelDeFelicidad() < 200
 	}
 }
+
+object copado {
+	method trabajar(alguien){
+		alguien.aumentarFelicidadEn()
+		alguien.aumentarDineroEn()
+	}
+}
+object mercenario {
+	method trabajar(alguien){		
+		alguien.aumentarDineroDeMercenario()
+	}
+}
+object aburrido {
+	method trabajar(alguien){
+		alguien.aumentarDineroEn()
+		alguien.disminuirFelicidadEn()
+	}
+}

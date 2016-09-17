@@ -1,4 +1,5 @@
 import personalidades.*
+import trabajos.*
 
 class Sims{
 	var sexo
@@ -14,7 +15,7 @@ class Sims{
 	
 	//Para el sexo usamos true=hombre, false= mujer
 	
-	constructor(unSexo, unaEdad, unNivelDeFelicidad, listaDeAmigos, unaPersonalidad, cantDinero, unSexoDePreferencia){
+	constructor(unSexo, unaEdad, unNivelDeFelicidad, listaDeAmigos, unaPersonalidad, cantDinero, unSexoDePreferencia, unTrabajo){
 		sexo = unSexo
 		edad = unaEdad
 		nivelDeFelicidad = unNivelDeFelicidad
@@ -22,6 +23,7 @@ class Sims{
 		personalidad = unaPersonalidad
 		dinero = cantDinero
 		sexoDePreferencia = unSexoDePreferencia
+		trabajo = unTrabajo
 	}
 
 	//GETTERS
@@ -74,6 +76,10 @@ class Sims{
 		
 	method setPersonalidad(unaPersonalidad){
 		personalidad = unaPersonalidad
+	}
+	
+	method setTrabajo(unTrabajo) {
+		trabajo = unTrabajo
 	}
 	
 	// FIN SETTERS
@@ -153,41 +159,20 @@ class Sims{
 			unSim.romperRelacion()
 		}
 	}
-		method aumentarDinero(unaCantidadDeDinero){
-		dinero += unaCantidadDeDinero
+	
+	method aumentarDineroEn(cant){
+		dinero += cant
 	}
 	
-	//method dineroDeMercenario(){		
-	//	var dinerilloExtra = (dinero *2)/100 + 100
-	//	unSim.aumentarDinero(dinerilloExtra)		
-	//}
-	
-	//method aumentarFelicidadEn10Porciento(){
-	//	felicidad += (felicidad*10)/100
-	//}	
-	
-	method trabajaConTodosSusAmigos(){}
-	
-	method dineroYTrabajo(unSim){
-		if (unSim.personalidad() == "copado" ){
-			unSim.aumentarFelicidadEn(5) and
-			unSim.aumentarDinero(100)
-		}
-		else if (unSim.personalidad() == "mercenario" ){
-			unSim.dineroDeMercenario()
-		}
-		else if (unSim.personalidad() == "aburrido" ){
-			unSim.aumentarFelicidadEn(-5) and
-			unSim.aumentarDinero(100)
-		}
-		and if(unSim.personalidad() == "buenazo" and unSim.trabajaConTodosSusAmigos()){
-			unSim.aumentarFelicidadEnDiezPorciento()
-		}	
-	}
-	
+	method aumentarDineroDeMercenario(){
+		dinero += 100 + ((2*dinero)/100)
+	}	
 }
 
-object martin inherits Sims(true, 24, 100, [], buenazo, 10, false){}
-object lucia inherits Sims(false, 26, 100, [], buenazo, 50, true){}
-object colo inherits Sims(true, 27, 100, [], buenazo, 10, false){}
+object martin inherits Sims(true, 24, 100, [], buenazo, 10, false, contador){}
+object lucia inherits Sims(false, 26, 100, [], buenazo, 50, true, medico){}
+object colo inherits Sims(true, 27, 100, [], buenazo, 10, false, vago){}
+object lucho inherits Sims(false, 28, 100, [], copado, 15, true, medico){}
+object carlos inherits Sims(true, 23, 100, [], mercenario, 40, false, contador){}
+object magali inherits Sims(true, 23, 100, [], aburrido, 30, false, medico){}
 
