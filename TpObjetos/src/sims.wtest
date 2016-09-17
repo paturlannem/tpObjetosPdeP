@@ -37,13 +37,22 @@ object fixture{
 	method unSimConFelicidad100(){
 		return new Sims(true, 55, 100, [], buenazo, 20, false)
 	}
-}
-
-test "Agrego un amigo a un sim"{
-	var simSolitario = fixture.unSimSinAmigos()
-	var otroSim = fixture.unSimInteresado()
-	simSolitario.agregarAmigo(otroSim)
-	assert.equals(1, simSolitario.listaDeAmigos().size())
+	
+	method unSimVaronQueLeAtraenMujeres(){
+		return new Sims(true, 0, 0, [], buenazo, 0, false)
+	}
+	
+	method unSimMujerQueLeAtraenVarones(){
+		return new Sims(false, 0, 0, [], buenazo, 0, true)
+	}
+	
+	method unSimConPlata(){
+		return new Sims(false, 0, 0, [], peleadoConLaVida, 1000000, true)
+	}
+	
+	method unSimPobre(){
+		return new Sims(false, 0, 0, [], buenazo, 1, true)
+	}
 }
 
 test "Calcula bien la popularidad de un sim"{
@@ -70,3 +79,56 @@ test "Valora bien el amigo peleadoConLaVida"{
 	var unSim = fixture.unSimSinAmigos()
 	assert.equals(0, peleadoConLaVida.obtenerValoracionDeAlguien(unSim))
 }
+
+test "Agrego un amigo a un sim y aumenta cantidad de lista de amigos"{
+	var simSolitario = fixture.unSimSinAmigos()
+	var otroSim = fixture.unSimInteresado()
+	simSolitario.agregarAmigo(otroSim)
+	assert.equals(1, simSolitario.listaDeAmigos().size())
+}
+
+test "Agrego un amigo a un sim y este esta en su lista de amigos"{
+	var simSolitario = fixture.unSimSinAmigos()
+	var otroSim = fixture.unSimInteresado()
+	simSolitario.agregarAmigo(otroSim)
+	assert.that(simSolitario.esAmigoDe(otroSim))
+}
+test "Agrego un amigo a un sim y su felicidad sube segun la valoracion del amigo"{
+	var simSolitario = fixture.unSimSinAmigos()
+	var otroSim = fixture.unSimConFelicidad100()
+	simSolitario.agregarAmigo(otroSim)
+	assert.equals(150, simSolitario.nivelDeFelicidad())
+}
+
+test "El abrazo comun aumenta la felicidad del dador en 2"{
+	var simFeliz = fixture.unSimConFelicidad100()
+	var otroSim = fixture.unSimSinAmigos()
+	simFeliz.darAbrazoComunA(otroSim)
+	assert.equals(102, simFeliz.nivelDeFelicidad())
+}
+
+test "El abrazo comun aumenta la felicidad del que recibe en 4"{
+	var simFeliz = fixture.unSimSinAmigos()
+	var otroSim = fixture.unSimConFelicidad100()
+	simFeliz.darAbrazoComunA(otroSim)
+	assert.equals(104, otroSim.nivelDeFelicidad())
+}
+
+test "A un sim le atrae otro si es del sexo de su preferencia"{
+	var unSimVaron = fixture.unSimVaronQueLeAtraenMujeres()
+	var otroSimMujer = fixture.unSimMujerQueLeAtraenVarones()
+	assert.that(unSimVaron.esDelSexoDeSuPreferencia(otroSimMujer))
+}
+
+test "A un sim interesado le atrae otro si duplica su fortuna"{
+	var unSimRico = fixture.unSimConPlata()
+	var otroSimPobre = fixture.unSimPobre()
+	assert.that(interesado.leGusta(unSimRico, otroSimPobre))
+}
+
+test "A un sim superficial le atrae otro si tiene mas o igual popularidad"{
+	var unSimConPopularidad = fixture.unSimConAmigos()
+	var otroSimSinPopularidad = fixture.unSimPobre()
+	assert.that(interesado.leGusta(unSimConPopularidad, otroSimSinPopularidad))
+}
+

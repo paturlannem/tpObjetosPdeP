@@ -4,7 +4,7 @@ object interesado{
 	}
 	
 	method leGusta(alguien, aEste){
-		return (aEste.dinero() * 2) >= (alguien.dinero())
+		return (aEste.dinero() * 2) <= (alguien.dinero())
 	}
 }
 
