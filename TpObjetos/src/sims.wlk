@@ -1,4 +1,6 @@
 import personalidades.*
+import trabajos.*
+import tiposDeTrabajo.*
 
 class Sims{
 	var sexo
@@ -11,10 +13,12 @@ class Sims{
 	var estaEnPareja = false
 	var suPareja
 	var amigosAntesDeTenerPareja = []
+	var trabajo
+
 	
 	//Para el sexo usamos true=hombre, false= mujer
 	
-	constructor(unSexo, unaEdad, unNivelDeFelicidad, listaDeAmigos, unaPersonalidad, cantDinero, unSexoDePreferencia){
+	constructor(unSexo, unaEdad, unNivelDeFelicidad, listaDeAmigos, unaPersonalidad, cantDinero, unSexoDePreferencia, unTrabajo){
 		sexo = unSexo
 		edad = unaEdad
 		nivelDeFelicidad = unNivelDeFelicidad
@@ -22,6 +26,7 @@ class Sims{
 		personalidad = unaPersonalidad
 		dinero = cantDinero
 		sexoDePreferencia = unSexoDePreferencia
+		trabajo = unTrabajo
 	}
 
 	//GETTERS
@@ -58,6 +63,10 @@ class Sims{
 		return suPareja
 	}
 	
+	method trabajo(){
+		return trabajo
+	}
+	
 	//SETTERS
 	
 	method setEdad(unaEdad){
@@ -78,6 +87,10 @@ class Sims{
 		
 	method setPersonalidad(unaPersonalidad){
 		personalidad = unaPersonalidad
+	}
+	
+	method setTrabajo(unTrabajo) {
+		trabajo = unTrabajo
 	}
 	
 	// FIN SETTERS
@@ -159,4 +172,23 @@ class Sims{
 			unSim.romperRelacion()
 		}
 	}
+	
+	method trabajaConTodosSusAmigos(){
+		return amigos.all({unAmigo => unAmigo.trabajo() == trabajo})
+	}
+	
+	method irATrabajar(){
+		trabajo.tipoDeTrabajo().trabajar(self)
+		if (personalidad == buenazo && self.trabajaConTodosSusAmigos()){
+			nivelDeFelicidad += nivelDeFelicidad * 0.1
+		}
+	}
+	
+	method aumentarDineroEn(cant){
+		dinero += cant
+	}
+	
+	method aumentarDineroDeMercenario(){
+		dinero += 100 + ((2*dinero)/100)
+	}	
 }

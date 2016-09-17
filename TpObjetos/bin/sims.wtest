@@ -1,5 +1,7 @@
 import sims.*
 import personalidades.*
+import trabajos.*
+import tiposDeTrabajo.*
 
 //assert.equals( A, a probar que es A)
 //assert.that(algo que esperamos V)
@@ -7,63 +9,63 @@ import personalidades.*
 
 object fixture{
 	method unSimSinAmigos(){
-		return new Sims(true, 20, 100, [], buenazo, 0, false)
+		return new Sims(true, 20, 100, [], buenazo, 0, false, medico)
 	}
 	
 	method unSimInteresado(){
-		return new Sims(true, 32, 60, [], interesado, 100, false)
+		return new Sims(true, 32, 60, [], interesado, 100, false, empresario)
 	}
 	
 	method unSimBuenazo(){
-		return new Sims(false, 15, 90, [], buenazo, 50, true)
+		return new Sims(false, 15, 90, [], buenazo, 50, true, bailarin)
 	}
 	
 	method unSimSuperficial(){
-		return new Sims(false, 34, 80, [], superficial, 80, true)
+		return new Sims(false, 34, 80, [], superficial, 80, true, medico)
 	}
 	
 	method unSimPeleadoConLaVida(){
-		return new Sims(true, 55, 10, [], peleadoConLaVida, 20, false)
+		return new Sims(true, 55, 10, [], peleadoConLaVida, 20, false, empresario)
 	}
 	
 	method unSimConAmigos(){
-		return new Sims(true, 34, 100, [self.unSimSuperficial(), self.unSimBuenazo(), self.unSimSinAmigos(), self.unSimInteresado()], buenazo, 40, false)
+		return new Sims(true, 34, 100, [self.unSimSuperficial(), self.unSimBuenazo(), self.unSimSinAmigos(), self.unSimInteresado()], buenazo, 40, false, bailarin)
 	}
 	
 	method unSimConPopularidad20(){
-		return new Sims(true, 55, 10, [self.unSimPeleadoConLaVida(), self.unSimPeleadoConLaVida()], peleadoConLaVida, 20, false)
+		return new Sims(true, 55, 10, [self.unSimPeleadoConLaVida(), self.unSimPeleadoConLaVida()], peleadoConLaVida, 20, false, medico)
 	}
 	
 	method unSimConFelicidad100(){
-		return new Sims(true, 55, 100, [], buenazo, 20, false)
+		return new Sims(true, 55, 100, [], buenazo, 20, false, empresario)
 	}
 	
 	method unSimVaronQueLeAtraenMujeres(){
-		return new Sims(true, 0, 0, [], buenazo, 0, false)
+		return new Sims(true, 0, 0, [], buenazo, 0, false, bailarin)
 	}
 	
 	method unSimMujerQueLeAtraenVarones(){
-		return new Sims(false, 0, 0, [], buenazo, 0, true)
+		return new Sims(false, 0, 0, [], buenazo, 0, true, medico)
 	}
 	
 	method unSimConPlata(){
-		return new Sims(false, 0, 0, [], peleadoConLaVida, 1000000, true)
+		return new Sims(false, 0, 0, [], peleadoConLaVida, 1000000, true, empresario)
 	}
 	
 	method unSimPobre(){
-		return new Sims(false, 0, 0, [], buenazo, 1, true)
+		return new Sims(false, 0, 0, [], buenazo, 1, true, bailarin)
 	}
 	
 	method unSimDeFelicidad199(){
-		return new Sims(false, 0, 199, [], buenazo, 1, true)
+		return new Sims(false, 0, 199, [], buenazo, 1, true, medico)
 	}
 	
 	method unSimConAmigosNumeros(){
-		return new Sims(false, 0, 0, [1,2,3], buenazo, 1, true)
+		return new Sims(false, 0, 0, [1,2,3], buenazo, 1, true, empresario)
 	}
 	
 	method unSimConAmigosOtrosNumeros(){
-		return new Sims(true, 0, 0, [3, 4], buenazo, 1, false)
+		return new Sims(true, 0, 0, [3, 4], buenazo, 1, false, bailarin)
 	}
 }
 
