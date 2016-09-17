@@ -8,8 +8,9 @@ class Sims{
 	var personalidad
 	var dinero
 	var sexoDePreferencia
-	var estaEnPareja
+	var estaEnPareja = false
 	var suPareja
+	var amigosAntesDeTenerPareja = []
 	
 	//Para el sexo usamos true=hombre, false= mujer
 	
@@ -47,6 +48,14 @@ class Sims{
 	
 	method dinero(){
 		return dinero
+	}
+	
+	method estaEnPareja(){
+		return estaEnPareja
+	}
+	
+	method suPareja(){
+		return suPareja
 	}
 	
 	//SETTERS
@@ -123,10 +132,12 @@ class Sims{
 	method romperRelacion(){
 		estaEnPareja = false
 		suPareja = null
+		amigos = amigosAntesDeTenerPareja
 	}
 	
 	method unirAmigos(unSim){
-		amigos = (self.listaDeAmigos() + unSim.amigos()).asSet().asList() 
+		amigosAntesDeTenerPareja = amigos
+		amigos = (self.listaDeAmigos() + unSim.listaDeAmigos()).asSet().asList() 
 	}
 	
 	method enRelacionCon(unSim){
@@ -142,15 +153,10 @@ class Sims{
 		return amigos.any({unAmigo => self.leAtrae(unAmigo)})
 	}
 	
-	method sePudreTodo(unSim){
+	method sePudreTodoCon(unSim){
 		if (self.leAtraeUnAmigo() || unSim.leAtraeUnAmigo()){
 			self.romperRelacion()
 			unSim.romperRelacion()
 		}
 	}
 }
-
-object martin inherits Sims(true, 24, 100, [], buenazo, 10, false){}
-object lucia inherits Sims(false, 26, 100, [], buenazo, 50, true){}
-object colo inherits Sims(true, 27, 100, [], buenazo, 10, false){}
-
