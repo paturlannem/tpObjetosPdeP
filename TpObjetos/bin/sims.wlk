@@ -13,7 +13,7 @@ class Sims{
 	var suPareja
 	var trabajo
 	
-	//Para el sexo usamos true=hombre, false= mujer
+	//Para el sexo us	amos true=hombre, false= mujer
 	
 	constructor(unSexo, unaEdad, unNivelDeFelicidad, listaDeAmigos, unaPersonalidad, cantDinero, unSexoDePreferencia, unTrabajo){
 		sexo = unSexo
@@ -101,6 +101,10 @@ class Sims{
 		nivelDeFelicidad += cant
 	}
 	
+	method disminuirFelicidadEn(cant){
+		nivelDeFelicidad -= cant
+	}
+	
 	method popularidad(){
 		return amigos.sum({unAmigo => unAmigo.nivelDeFelicidad()})	
 	}
@@ -172,7 +176,7 @@ class Sims{
 object martin inherits Sims(true, 24, 100, [], buenazo, 10, false, contador){}
 object lucia inherits Sims(false, 26, 100, [], buenazo, 50, true, medico){}
 object colo inherits Sims(true, 27, 100, [], buenazo, 10, false, vago){}
-object lucho inherits Sims(false, 28, 100, [], copado, 15, true, medico){}
+object flor inherits Sims(false, 28, 100, [], copado, 15, true, medico){}
 object carlos inherits Sims(true, 23, 100, [], mercenario, 40, false, contador){}
 object magali inherits Sims(true, 23, 100, [], aburrido, 30, false, medico){}
 
