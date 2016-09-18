@@ -1,6 +1,6 @@
 class TiposDeTrabajo{
 	method trabajar(alguien){
-		alguien.aumentarFelicidadEn(alguien.trabajo().felicidadQueGenera())
+		alguien.cambiarFelicidadEn(alguien.trabajo().felicidadQueGenera())
 		alguien.aumentarDineroEn(alguien.trabajo().remuneracion())
 	}
 }

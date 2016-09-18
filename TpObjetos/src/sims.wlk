@@ -1,6 +1,7 @@
 import personalidades.*
 import trabajos.*
 import tiposDeTrabajo.*
+import estadosDeAnimo.*
 
 class Sims{
 	var sexo
@@ -14,6 +15,8 @@ class Sims{
 	var suPareja
 	var amigosAntesDeTenerPareja = []
 	var trabajo
+	var estadoDeAnimo
+	var conocimiento = []
 
 	
 	//Para el sexo usamos true=hombre, false= mujer
@@ -67,6 +70,10 @@ class Sims{
 		return trabajo
 	}
 	
+	method conocimiento(){
+		return conocimiento
+	}
+	
 	//SETTERS
 	
 	method setEdad(unaEdad){
@@ -93,6 +100,14 @@ class Sims{
 		trabajo = unTrabajo
 	}
 	
+	method setEstadoDeAnimo(unEstadoDeAnimo){
+		estadoDeAnimo = unEstadoDeAnimo 
+	}
+	
+	method setConocimiento(conocimientos){
+		conocimiento = conocimientos
+	}
+	
 	// FIN SETTERS
 	
 	method agregarAmigo(unAmigo){
@@ -108,7 +123,7 @@ class Sims{
 		return amigos.contains(unAmigo)
 	}
 	
-	method aumentarFelicidadEn(cant){
+	method cambiarFelicidadEn(cant){
 		nivelDeFelicidad += cant
 	}
 	
@@ -125,16 +140,18 @@ class Sims{
 	}
 	
 	method darAbrazoComunA(alguien){
-		self.aumentarFelicidadEn(2)
-		alguien.aumentarFelicidadEn(4)
+		self.cambiarFelicidadEn(2)
+		alguien.cambiarFelicidadEn(4)
 	}
 	
 	method darAbrazoProlongadoA(alguien){
 		if(alguien.leAtrae(self)){
-			//Alguien Se pone SOÑADOR
+			estadoDeAnimo = soniador
+			estadoDeAnimo.aplicarEstado()
 		}
 		else{
-			//Alguien se pone incomodo
+			estadoDeAnimo = incomodidad
+			estadoDeAnimo.aplicarEstado()
 		}
 	}
 	method ponerEnPareja(alguien){
@@ -190,5 +207,50 @@ class Sims{
 	
 	method aumentarDineroDeMercenario(){
 		dinero += 100 + ((2*dinero)/100)
+	}
+	
+	method agregarConocimiento(unConocimiento){
+		if (!conocimiento.contains(unConocimiento)){
+			conocimiento.add(unConocimiento)
+		}
+	}
+	
+	method esMasRico(unAmigo){
+		return unAmigo.dinero() > dinero
+	}
+	
+	method eliminarAmigosMasRicos(){
+		return amigos.filter({unAmigo => !self.esMasRico(unAmigo)})
+	}
+	
+	method ataqueDeCelosPorPlata(){
+		self.cambiarFelicidadEn(-10)
+		amigos = self.eliminarAmigosMasRicos()
+	}
+	
+	method esMasPopular(unAmigo){
+		return unAmigo.popularidad() > self.popularidad()
+	}
+	
+	method eliminarAmigosMasPopulares(){
+		return amigos.filter({unAmigo => !self.esMasPopular(unAmigo)})
+	}
+	
+	method ataqueDeCelosPorPopularidad(){
+		self.cambiarFelicidadEn(-10)
+		amigos = self.eliminarAmigosMasPopulares()
+	}
+	
+	method esAmigoDeMiPareja(unAmigo){
+		return suPareja.amigos().contains(unAmigo)
+	}
+	
+	method eliminarAmigosQueSonAmigosDeMiPareja(){
+		return amigos.filter({unAmigo => !self.esAmigoDeMiPareja(unAmigo)})
+	}
+	
+	method ataqueDeCelosPorPareja(){
+		self.cambiarFelicidadEn(-10)
+		amigos = self.eliminarAmigosQueSonAmigosDeMiPareja()
 	}	
 }

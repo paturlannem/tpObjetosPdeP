@@ -2,6 +2,7 @@ import sims.*
 import personalidades.*
 import trabajos.*
 import tiposDeTrabajo.*
+import estadosDeAnimo.*
 
 //assert.equals( A, a probar que es A)
 //assert.that(algo que esperamos V)
@@ -213,4 +214,17 @@ test "Si entre dos sims se pudre todo, quedan sin pareja"{
 	unSim.enRelacionCon(unSimPareja)
 	unSim.sePudreTodoCon(unSimPareja)
 	assert.that(unSim.estaEnPareja())
+}
+
+test "Se agrega un conocimiento nuevo al sim"{
+	var unSim = fixture.unSimBuenazo()
+	unSim.agregarConocimiento("un conocimiento")
+	assert.equals(["un conocimiento"], unSim.conocimiento())
+}
+
+test "No se agrega un conocimiento que ya tiene el sim"{
+	var unSim = fixture.unSimBuenazo()
+	unSim.agregarConocimiento("un conocimiento")
+	unSim.agregarConocimiento("un conocimiento")
+	assert.equals(["un conocimiento"], unSim.conocimiento())
 }
