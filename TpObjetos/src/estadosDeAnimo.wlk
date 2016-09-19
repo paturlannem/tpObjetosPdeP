@@ -1,3 +1,5 @@
+object normal{}
+
 object soniador{
 	method cambiarFelicidadDeSoniador(alguien){
 		var felicidadActual = alguien.nivelDeFelicidad()

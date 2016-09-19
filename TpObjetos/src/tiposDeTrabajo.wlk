@@ -1,7 +1,9 @@
 class TiposDeTrabajo{
 	method trabajar(alguien){
-		alguien.cambiarFelicidadEn(alguien.trabajo().felicidadQueGenera())
-		alguien.aumentarDineroEn(alguien.trabajo().remuneracion())
+		var cantDeFelicidadACambiar = alguien.trabajo().felicidadQueGenera()
+		var cantDeDineroACambiar = alguien.trabajo().remuneracion()
+		alguien.cambiarFelicidadEn(cantDeFelicidadACambiar)
+		alguien.aumentarDineroEn(cantDeDineroACambiar)
 	}
 }
 
