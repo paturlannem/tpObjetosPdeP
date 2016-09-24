@@ -2,7 +2,7 @@ import sims.*
 
 object interesado{
 	method obtenerValoracionDeAlguien(alguienAValorar){
-			return (alguienAValorar.listaDeAmigos().sum({unAmigo => unAmigo.dinero()})) * 0.1
+			return (alguienAValorar.amigosDelSim().sum({unAmigo => unAmigo.dinero()})) * 0.1
 	}
 	
 	method leAtrae(alguien, aEste){
