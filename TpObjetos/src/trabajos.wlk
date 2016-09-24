@@ -1,4 +1,5 @@
 import tiposDeTrabajo.*
+import sims.*
 
 class Trabajos{
 	var remuneracion
@@ -21,6 +22,14 @@ class Trabajos{
 	
 	method tipoDeTrabajo(){
 		return tipoDeTrabajo
+	}
+	
+	method aumentarDineroEn(cant){
+		remuneracion += cant
+	}
+	
+	method aumentarDineroDeMercenario(cant){
+		remuneracion += 100 + (remuneracion *0.2) + cant
 	}
 }
 
