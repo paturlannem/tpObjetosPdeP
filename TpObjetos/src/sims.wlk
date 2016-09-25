@@ -115,6 +115,11 @@ class Sim{
 	
 	// FIN SETTERS
 	
+	method dineroDeAmigos(){
+		return amigos.sum({unAmigo=>unAmigo.dinero()})
+	}
+	
+	
 	method agregarAmigo(unAmigo){
 		amigos.add(unAmigo)
 		nivelDeFelicidad += personalidad.obtenerValoracionDeAlguien(unAmigo)
