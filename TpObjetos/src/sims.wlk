@@ -18,7 +18,7 @@ class Sim{
 	var sexoDePreferencia
 	var estaEnPareja = false
 	var suPareja
-	var amigosAntesDeTenerPareja = []
+	var amigosDeSiempre = []
 	var trabajo
 	var estadoDeAnimo = normal
 	var conocimiento = []
@@ -119,18 +119,26 @@ class Sim{
 		return amigos.sum({unAmigo=>unAmigo.dinero()})
 	}
 	
-	
 	method agregarAmigo(unAmigo){
+		if (estaEnPareja = true){
+			amigosDeSiempre.add(unAmigo)
+			amigos.add(unAmigo)
+			nivelDeFelicidad += personalidad.obtenerValoracionDeAlguien(unAmigo)
+		}
+		else {
 		amigos.add(unAmigo)
 		nivelDeFelicidad += personalidad.obtenerValoracionDeAlguien(unAmigo)
+		}
 	}
+	
 	
 	method amigoAQuienMasValora(){
 		return amigos.max({unAmigo => personalidad.obtenerValoracionDeAlguien(unAmigo)})
 	}
 	
 	method eliminarAmigo(unAmigo){
-		amigos.remove(unAmigo)
+			amigos.remove(unAmigo)
+			amigosDeSiempre.remove(unAmigo)
 	}
 	
 	method esAmigoDe(unAmigo){
@@ -173,11 +181,11 @@ class Sim{
 	method darAbrazoProlongadoA(alguien){
 		if(alguien.leAtrae(self)){
 			alguien.setEstadoDeAnimo(soniador)
-			alguien.estadoDeAnimo().aplicarEstado(self)
+			alguien.estadoDeAnimo().aplicarEstado()
 		}
 		else{
 			alguien.setEstadoDeAnimo(incomodidad)
-			alguien.estadoDeAnimo().aplicarEstado(self)
+			alguien.estadoDeAnimo().aplicarEstado()
 		}
 	}
 	
@@ -193,17 +201,12 @@ class Sim{
 	method romperRelacion(){
 		estaEnPareja = false
 		suPareja = null
-		amigos = amigosAntesDeTenerPareja
+		amigos = amigosDeSiempre
 	}
 	
 	method unirAmigos(unSim){
-		amigosAntesDeTenerPareja = amigos
-		amigos = (amigos + unSim.amigosDelSim()).asSet().asList() 
-	}
-	
-	method unirAmigosDePareja(unSim){
-		amigosAntesDeTenerPareja = amigos
-		amigos = unSim.amigosDelSim() 
+		amigosDeSiempre = amigos
+		amigos = (amigos + unSim.amigosDelSim()).asSet() 
 	}
 	
 	method iniciarRelacionCon(unSim){
@@ -211,7 +214,7 @@ class Sim{
 			self.ponerEnPareja(unSim)
 			unSim.ponerEnPareja(self)
 			self.unirAmigos(unSim)
-			unSim.unirAmigosDePareja(self)
+			unSim.unirAmigos(self)
 		}	
 	}
 	
