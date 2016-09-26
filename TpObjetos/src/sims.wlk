@@ -262,25 +262,7 @@ class Sim{
 	
 	method eliminarAmigosMasRicos(){
 		return amigos.filter({unAmigo => !(self.esMasRico(unAmigo))})
-	}
-	
-	method ataqueDeCelosPorPlata(){
-		self.cambiarFelicidadEn(-10)
-		amigos = self.eliminarAmigosMasRicos()
-	}
-	
-	method esMasPopular(unAmigo){
-		return unAmigo.popularidad() > self.popularidad()
-	}
-	
-	method eliminarAmigosMasPopulares(){
-		return amigos.filter({unAmigo => !(self.esMasPopular(unAmigo))})
-	}
-	
-	method ataqueDeCelosPorPopularidad(){
-		self.cambiarFelicidadEn(-10)
-		amigos = self.eliminarAmigosMasPopulares()
-	}
+	}	
 	
 	method esAmigoDeMiPareja(unAmigo){
 		return suPareja.amigos().contains(unAmigo)
@@ -289,9 +271,31 @@ class Sim{
 	method eliminarAmigosQueSonAmigosDeMiPareja(){
 		return amigos.filter({unAmigo => !(self.esAmigoDeMiPareja(unAmigo))})
 	}
-	
-	method ataqueDeCelosPorPareja(){
-		self.cambiarFelicidadEn(-10)
-		amigos = self.eliminarAmigosQueSonAmigosDeMiPareja()
+
+// Dejaríamos el esMasPopular(),esMasRico() y esAmigoDeMiPareja() como método en class Sim
+//consultar
+
+class Celos {
+     method disminuirFelicidad(unSim){
+		return unSim.cambiarFelicidadEn(-10)
+		}
+}
+
+
+class PorPlata inherits Celos {
+    method efectosDeCelos(unSim){ 
+    	return unSim.eliminarAmigosMasRicos()
+     }
+}
+
+class PorPopularidad inherits Celos   {
+     method efectoDeCelos(unSim){
+     	return unSim.eliminarAmigosMasPopulares()
+	}
+}
+
+class PorAmigoDePareja inherits Celos {
+     method efectoDeCelos(unSim){
+		return unSim.eliminarAmigosQueSonAmigosDeMiPareja()
 	}	
 }
