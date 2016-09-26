@@ -120,17 +120,12 @@ class Sim{
 	}
 	
 	method agregarAmigo(unAmigo){
-		if (estaEnPareja = true){
-			amigosDeSiempre.add(unAmigo)
-			amigos.add(unAmigo)
-			nivelDeFelicidad += personalidad.obtenerValoracionDeAlguien(unAmigo)
-		}
-		else {
 		amigos.add(unAmigo)
 		nivelDeFelicidad += personalidad.obtenerValoracionDeAlguien(unAmigo)
+		if (estaEnPareja = true){
+			amigosDeSiempre.add(unAmigo)
 		}
 	}
-	
 	
 	method amigoAQuienMasValora(){
 		return amigos.max({unAmigo => personalidad.obtenerValoracionDeAlguien(unAmigo)})
@@ -168,7 +163,7 @@ class Sim{
 	method esDelSexoDeSuPreferencia(unSim){
 		return unSim.sexo() == sexoDePreferencia
 	}
-	
+	// se repite el nombre del metodo con un metodo en personalidades, el otro metodo recibe 2 parametros, confunde cuando se usa en los test
 	method leAtrae(unSim){
 		return self.esDelSexoDeSuPreferencia(unSim) && personalidad.leAtrae(unSim, self)
 	}
@@ -271,7 +266,7 @@ class Sim{
 	method eliminarAmigosQueSonAmigosDeMiPareja(){
 		return amigos.filter({unAmigo => !(self.esAmigoDeMiPareja(unAmigo))})
 	}
-
+}
 // Dejaríamos el esMasPopular(),esMasRico() y esAmigoDeMiPareja() como método en class Sim
 //consultar
 
