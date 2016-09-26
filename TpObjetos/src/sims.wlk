@@ -148,10 +148,6 @@ class Sim{
 		nivelDeFelicidad += cant
 	}
 	
-	method aumentarFelicidadDeBuenazo(){
-		nivelDeFelicidad += nivelDeFelicidad * 0.1
-	}
-	
 	method popularidad(){
 		return amigos.sum({unAmigo => unAmigo.nivelDeFelicidad()})	
 	}

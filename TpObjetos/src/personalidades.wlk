@@ -40,7 +40,7 @@ object buenazo{
 	
 	method trabajar(alguien){
 		if (alguien.trabajaConTodosSusAmigos()){
-			alguien.aumentarFelicidadDeBuenazo()
+			alguien.cambiarFelicidadEn(alguien.felicidad * 0.1)
 		}
 		else{}
 	}
