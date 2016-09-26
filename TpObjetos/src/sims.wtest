@@ -132,7 +132,7 @@ test "A un sim interesado le atrae otro si duplica su fortuna"{
 test "A un sim superficial le atrae otro si tiene mas o igual popularidad"{
 	var unSimConPopularidad = fixture.unSimConAmigos()
 	var otroSimSinPopularidad = fixture.unSimPobre()
-	assert.that(interesado.leAtrae(unSimConPopularidad, otroSimSinPopularidad))
+	assert.that(interesado.leAtraeInteresado(unSimConPopularidad, otroSimSinPopularidad))
 }
 
 test "A un sim buenazo le atrae otro"{

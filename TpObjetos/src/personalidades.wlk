@@ -5,7 +5,7 @@ object interesado{
 			return (alguienAValorar.dineroDeAmigos()*10)/100
 	}
 	// metodo repetido
-	method leAtrae(alguien, aEste){
+	method leAtraeInteresado(alguien, aEste){
 		return (aEste.dinero() * 2) <= (alguien.dinero())
 	}
 	method trabajar(alguien){}
