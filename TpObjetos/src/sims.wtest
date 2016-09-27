@@ -10,7 +10,7 @@ import celos.*
 //assert.notThat(algo que esperamos F)
 
 object fixture{
-	// revisar si sexo cambia a hombre o mujer o sigue con true o false, en caso de cambiar cambiarlo en los sims
+	
 	method unSimSinAmigos(){
 		return new Sim(true, 20, 100, [], buenazo, 0, false, medico)
 	}
@@ -77,6 +77,9 @@ object fixture{
 	
 	method unSimConAmigosOtrosNumeros(){
 		return new Sim(true, 0, 0, [3, 4], buenazo, 1, false, bailarin)
+	}
+	method unSimDesempleado(){
+		return new Sim (true, 30, 50, [], peleadoConLaVida, 50, false, desempleado)
 	}
 }
 
@@ -439,6 +442,11 @@ test "Un sim va a trabajar"{
 	var unSim = fixture.unSimSuperficial()
 	unSim.irATrabajar()
 	assert.equals(110, unSim.nivelDeFelicidad())
+}
+test "Un sim desempleado va a trabajar" {
+	var unSim = fixture.unSimDesempleado()
+	unSim.irATrabajar()
+	assert.equals(50, unSim.nivelDeFelicidad())
 }
 
 //30
