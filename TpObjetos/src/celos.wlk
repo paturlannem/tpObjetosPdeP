@@ -2,27 +2,23 @@ import sims.*
 // Dejaríamos el esMasPopular(),esMasRico() y esAmigoDeMiPareja() como método en class Sim
 //consultar
 
-class Celos {
-     method disminuirFelicidad(unSim){
-		return unSim.cambiarFelicidadEn(-10)
-		}
-}
-
-
-class PorPlata inherits Celos {
+class PorPlata {
     method efectosDeCelos(unSim){ 
-    	return unSim.eliminarAmigosMasRicos()
+    	unSim.cambiarFelicidadEn(-10)
+    	unSim.eliminarAmigosMasRicos()
      }
 }
 
-class PorPopularidad inherits Celos   {
+class PorPopularidad {
      method efectoDeCelos(unSim){
-     	return unSim.eliminarAmigosMasPopulares()
+     	unSim.cambiarFelicidadEn(-10)
+     	unSim.eliminarAmigosMasPopulares()
 	}
 }
 
-class PorAmigoDePareja inherits Celos {
+class PorAmigoDePareja {
      method efectoDeCelos(unSim){
-		return unSim.eliminarAmigosQueSonAmigosDeMiPareja()
+     	unSim.cambiarFelicidadEn(-10)
+		unSim.eliminarAmigosQueSonAmigosDeMiPareja()
 	}	
 }
