@@ -133,19 +133,19 @@ test "A un sim interesado le atrae otro si duplica su fortuna"{
 test "A un sim superficial le atrae otro si tiene mas o igual popularidad"{
 	var unSimConPopularidad = fixture.unSimConAmigos()
 	var otroSimSinPopularidad = fixture.unSimPobre()
-	assert.that(interesado.leAtraeInteresado(unSimConPopularidad, otroSimSinPopularidad))
+	assert.that(interesado.leAtrae(unSimConPopularidad, otroSimSinPopularidad))
 }
 
 test "A un sim buenazo le atrae otro"{
 	var unSim = fixture.unSimConAmigos()
 	var otroSim = fixture.unSimPobre()
-	assert.that(buenazo.leGusta(unSim, otroSim))
+	assert.that(buenazo.leAtrae(unSim, otroSim))
 }
 
 test "A un sim peleado con la vida le atrae otro si el otro tiene menos de 200 de felicidad"{
 	var unSim = fixture.unSimConAmigos()
 	var unSimTriste = fixture.unSimDeFelicidad199()
-	assert.that(buenazo.leGusta(unSimTriste, unSim))
+	assert.that(buenazo.leAtrae(unSimTriste, unSim))
 }
 
 test "Si un sim se pone en pareja, suPareja es el sim con que se relaciona"{
