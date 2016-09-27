@@ -433,7 +433,7 @@ test "Hacer que un sim se ponga celoso"{
 	var simPobre = fixture.unSimPobre()
 	unSim.agregarAmigo(otroSim)
 	unSim.agregarAmigo(simPobre)
-	porPlata.efectoDeCelos(unSim)
+	CelosPorPlata.efectoDeCelos(unSim)
 	assert.equals([simPobre], unSim.listaDeAmigos())
 }
 
