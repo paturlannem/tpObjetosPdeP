@@ -3,20 +3,11 @@ import trabajos.*
 import tiposDeTrabajo.*
 import estadosDeAnimo.*
 import celos.*
+
 //package sexo {	
 //object hombre {}
 //object mujer {}
-//}
-object femenino{
-	method sexo() {
-		return femenino
-	}
-}
-object masculino{
-	method sexo() {
-		return masculino
-	}
-}
+
 
 class Sim{
 	var sexo
