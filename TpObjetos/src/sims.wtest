@@ -3,6 +3,7 @@ import personalidades.*
 import trabajos.*
 import tiposDeTrabajo.*
 import estadosDeAnimo.*
+import celos.*
 
 //assert.equals( A, a probar que es A)
 //assert.that(algo que esperamos V)

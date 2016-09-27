@@ -2,11 +2,21 @@ import personalidades.*
 import trabajos.*
 import tiposDeTrabajo.*
 import estadosDeAnimo.*
-
+import celos.*
 //package sexo {	
 //object hombre {}
 //object mujer {}
 //}
+object femenino{
+	method sexo() {
+		return femenino
+	}
+}
+object masculino{
+	method sexo() {
+		return masculino
+	}
+}
 
 class Sim{
 	var sexo
@@ -263,30 +273,4 @@ class Sim{
 		return amigos.filter({unAmigo => !(self.esAmigoDeMiPareja(unAmigo))})
 	}
 }
-// Dejaríamos el esMasPopular(),esMasRico() y esAmigoDeMiPareja() como método en class Sim
-//consultar
 
-class Celos {
-     method disminuirFelicidad(unSim){
-		return unSim.cambiarFelicidadEn(-10)
-		}
-}
-
-
-class PorPlata inherits Celos {
-    method efectosDeCelos(unSim){ 
-    	return unSim.eliminarAmigosMasRicos()
-     }
-}
-
-class PorPopularidad inherits Celos   {
-     method efectoDeCelos(unSim){
-     	return unSim.eliminarAmigosMasPopulares()
-	}
-}
-
-class PorAmigoDePareja inherits Celos {
-     method efectoDeCelos(unSim){
-		return unSim.eliminarAmigosQueSonAmigosDeMiPareja()
-	}	
-}
