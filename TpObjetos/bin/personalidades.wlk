@@ -4,6 +4,7 @@ object interesado{
 	method obtenerValoracionDeAlguien(alguienAValorar){
 			return (alguienAValorar.dineroDeAmigos()*10)/100
 	}
+	
 	method leAtrae(alguien, aEste){
 		return (aEste.dinero() * 2) <= (alguien.dinero())
 	}
@@ -22,7 +23,7 @@ object superficial{
 		return (yo.amigos().max({unAmigo => unAmigo.popularidad()}).popularidad()) >= alguien.popularidad()	
 	}
 	
-	method leAtrae(alguien, aEste){
+	method leGusta(alguien, aEste){
 		return self.esJovenParaSuperficial(alguien) && self.masPopularidadDeElQueMisAmigos(alguien, aEste) 
 	}
 	method trabajar(alguien){}
@@ -33,13 +34,13 @@ object buenazo{
 			return 0.5 * alguienAValorar.nivelDeFelicidad()
 	}
 	
-	method leAtrae(alguien, aEste){
+	method leGusta(alguien, aEste){
 		return true
 	}
 	
 	method trabajar(alguien){
 		if (alguien.trabajaConTodosSusAmigos()){
-			alguien.cambiarFelicidadEn(alguien.felicidad * 0.1)
+			alguien.aumentarFelicidadDeBuenazo()
 		}
 		else{}
 	}
@@ -51,7 +52,7 @@ object peleadoConLaVida{
 			return 0
 	}
 	
-	method leAtrae(alguien, aEste){
+	method leGusta(alguien, aEste){
 		return alguien.nivelDeFelicidad() < 200
 	}
 	method trabajar(alguien){}

@@ -3,14 +3,12 @@ import personalidades.*
 import trabajos.*
 import tiposDeTrabajo.*
 import estadosDeAnimo.*
-import celos.*
 
 //assert.equals( A, a probar que es A)
 //assert.that(algo que esperamos V)
 //assert.notThat(algo que esperamos F)
 
 object fixture{
-	// revisar si sexo cambia a hombre o mujer o sigue con true o false, en caso de cambiar cambiarlo en los sims
 	method unSimSinAmigos(){
 		return new Sim(true, 20, 100, [], buenazo, 0, false, medico)
 	}
@@ -139,13 +137,13 @@ test "A un sim superficial le atrae otro si tiene mas o igual popularidad"{
 test "A un sim buenazo le atrae otro"{
 	var unSim = fixture.unSimConAmigos()
 	var otroSim = fixture.unSimPobre()
-	assert.that(buenazo.leAtrae(unSim, otroSim))
+	assert.that(buenazo.leGusta(unSim, otroSim))
 }
 
 test "A un sim peleado con la vida le atrae otro si el otro tiene menos de 200 de felicidad"{
 	var unSim = fixture.unSimConAmigos()
 	var unSimTriste = fixture.unSimDeFelicidad199()
-	assert.that(buenazo.leAtrae(unSimTriste, unSim))
+	assert.that(buenazo.leGusta(unSimTriste, unSim))
 }
 
 test "Si un sim se pone en pareja, suPareja es el sim con que se relaciona"{
@@ -430,7 +428,7 @@ test "Hacer que un sim se ponga celoso"{
 	var simPobre = fixture.unSimPobre()
 	unSim.agregarAmigo(otroSim)
 	unSim.agregarAmigo(simPobre)
-	CelosPorPlata.efectoDeCelos(unSim)
+	unSim.ataqueDeCelosPorPlata()
 	assert.equals([simPobre], unSim.listaDeAmigos())
 }
 
