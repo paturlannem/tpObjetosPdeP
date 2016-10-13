@@ -2,11 +2,12 @@ import personalidades.*
 import trabajos.*
 import tiposDeTrabajo.*
 import estadosDeAnimo.*
+import celos.*
 
 //package sexo {	
 //object hombre {}
 //object mujer {}
-//}
+
 
 class Sim{
 	var sexo
@@ -120,17 +121,12 @@ class Sim{
 	}
 	
 	method agregarAmigo(unAmigo){
-		if (estaEnPareja = true){
-			amigosDeSiempre.add(unAmigo)
-			amigos.add(unAmigo)
-			nivelDeFelicidad += personalidad.obtenerValoracionDeAlguien(unAmigo)
-		}
-		else {
 		amigos.add(unAmigo)
 		nivelDeFelicidad += personalidad.obtenerValoracionDeAlguien(unAmigo)
+		if (estaEnPareja = true){
+			amigosDeSiempre.add(unAmigo)
 		}
 	}
-	
 	
 	method amigoAQuienMasValora(){
 		return amigos.max({unAmigo => personalidad.obtenerValoracionDeAlguien(unAmigo)})
@@ -153,10 +149,6 @@ class Sim{
 		nivelDeFelicidad += cant
 	}
 	
-	method aumentarFelicidadDeBuenazo(){
-		nivelDeFelicidad += nivelDeFelicidad * 0.1
-	}
-	
 	method popularidad(){
 		return amigos.sum({unAmigo => unAmigo.nivelDeFelicidad()})	
 	}
@@ -168,7 +160,7 @@ class Sim{
 	method esDelSexoDeSuPreferencia(unSim){
 		return unSim.sexo() == sexoDePreferencia
 	}
-	
+	// se repite el nombre del metodo con un metodo en personalidades, el otro metodo recibe 2 parametros, confunde cuando se usa en los test
 	method leAtrae(unSim){
 		return self.esDelSexoDeSuPreferencia(unSim) && personalidad.leAtrae(unSim, self)
 	}
@@ -262,25 +254,7 @@ class Sim{
 	
 	method eliminarAmigosMasRicos(){
 		return amigos.filter({unAmigo => !(self.esMasRico(unAmigo))})
-	}
-	
-	method ataqueDeCelosPorPlata(){
-		self.cambiarFelicidadEn(-10)
-		amigos = self.eliminarAmigosMasRicos()
-	}
-	
-	method esMasPopular(unAmigo){
-		return unAmigo.popularidad() > self.popularidad()
-	}
-	
-	method eliminarAmigosMasPopulares(){
-		return amigos.filter({unAmigo => !(self.esMasPopular(unAmigo))})
-	}
-	
-	method ataqueDeCelosPorPopularidad(){
-		self.cambiarFelicidadEn(-10)
-		amigos = self.eliminarAmigosMasPopulares()
-	}
+	}	
 	
 	method esAmigoDeMiPareja(unAmigo){
 		return suPareja.amigos().contains(unAmigo)
@@ -289,9 +263,5 @@ class Sim{
 	method eliminarAmigosQueSonAmigosDeMiPareja(){
 		return amigos.filter({unAmigo => !(self.esAmigoDeMiPareja(unAmigo))})
 	}
-	
-	method ataqueDeCelosPorPareja(){
-		self.cambiarFelicidadEn(-10)
-		amigos = self.eliminarAmigosQueSonAmigosDeMiPareja()
-	}	
 }
+

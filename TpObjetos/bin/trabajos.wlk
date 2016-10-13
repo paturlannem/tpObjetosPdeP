@@ -28,11 +28,9 @@ class Trabajos{
 		remuneracion += cant
 	}
 	
-	method aumentarDineroDeMercenario(cant){
-		remuneracion += 100 + (remuneracion *0.2) + cant
-	}
 }
 
 object medico inherits Trabajos( 2000, 30, copado){}
 object empresario inherits Trabajos(10000, 5, mercenario){}
 object bailarin inherits Trabajos(500, -10, aburrido){}
+object desempleado inherits trabajos(0, 0, void){}

@@ -3,12 +3,14 @@ import personalidades.*
 import trabajos.*
 import tiposDeTrabajo.*
 import estadosDeAnimo.*
+import celos.*
 
 //assert.equals( A, a probar que es A)
 //assert.that(algo que esperamos V)
 //assert.notThat(algo que esperamos F)
 
 object fixture{
+	
 	method unSimSinAmigos(){
 		return new Sim(true, 20, 100, [], buenazo, 0, false, medico)
 	}
@@ -76,6 +78,9 @@ object fixture{
 	method unSimConAmigosOtrosNumeros(){
 		return new Sim(true, 0, 0, [3, 4], buenazo, 1, false, bailarin)
 	}
+	method unSimDesempleado(){
+		return new Sim (true, 30, 50, [], peleadoConLaVida, 50, false, desempleado)
+	}
 }
 
 test "Valora bien el amigo interesado"{
@@ -137,13 +142,13 @@ test "A un sim superficial le atrae otro si tiene mas o igual popularidad"{
 test "A un sim buenazo le atrae otro"{
 	var unSim = fixture.unSimConAmigos()
 	var otroSim = fixture.unSimPobre()
-	assert.that(buenazo.leGusta(unSim, otroSim))
+	assert.that(buenazo.leAtrae(unSim, otroSim))
 }
 
 test "A un sim peleado con la vida le atrae otro si el otro tiene menos de 200 de felicidad"{
 	var unSim = fixture.unSimConAmigos()
 	var unSimTriste = fixture.unSimDeFelicidad199()
-	assert.that(buenazo.leGusta(unSimTriste, unSim))
+	assert.that(buenazo.leAtrae(unSimTriste, unSim))
 }
 
 test "Si un sim se pone en pareja, suPareja es el sim con que se relaciona"{
@@ -428,7 +433,7 @@ test "Hacer que un sim se ponga celoso"{
 	var simPobre = fixture.unSimPobre()
 	unSim.agregarAmigo(otroSim)
 	unSim.agregarAmigo(simPobre)
-	unSim.ataqueDeCelosPorPlata()
+	CelosPorPlata.efectoDeCelos(unSim)
 	assert.equals([simPobre], unSim.listaDeAmigos())
 }
 
@@ -437,6 +442,11 @@ test "Un sim va a trabajar"{
 	var unSim = fixture.unSimSuperficial()
 	unSim.irATrabajar()
 	assert.equals(110, unSim.nivelDeFelicidad())
+}
+test "Un sim desempleado va a trabajar" {
+	var unSim = fixture.unSimDesempleado()
+	unSim.irATrabajar()
+	assert.equals(50, unSim.nivelDeFelicidad())
 }
 
 //30

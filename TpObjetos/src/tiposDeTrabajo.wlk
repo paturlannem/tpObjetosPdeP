@@ -12,6 +12,6 @@ object aburrido inherits TiposDeTrabajo{}
 
 object mercenario{
 	method trabajar(alguien, cant){		
-		alguien.aumentarDineroDeMercenario(alguien)
+		alguien.aumentarDinero(100 + (alguien.dinero *0.2) + cant)
 	}
 }
