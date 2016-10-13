@@ -1,11 +1,13 @@
+import sims.*
+
 object interesado{
 	method obtenerValoracionDeAlguien(alguienAValorar){
-			return (alguienAValorar.listaDeAmigos().sum({unAmigo => unAmigo.dinero()})) * 0.1
+			return (alguienAValorar.dineroDeAmigos()*10)/100
 	}
-	
-	method leGusta(alguien, aEste){
+	method leAtrae(alguien, aEste){
 		return (aEste.dinero() * 2) <= (alguien.dinero())
 	}
+	method trabajar(alguien){}
 }
 
 object superficial{
@@ -20,9 +22,10 @@ object superficial{
 		return (yo.amigos().max({unAmigo => unAmigo.popularidad()}).popularidad()) >= alguien.popularidad()	
 	}
 	
-	method leGusta(alguien, aEste){
+	method leAtrae(alguien, aEste){
 		return self.esJovenParaSuperficial(alguien) && self.masPopularidadDeElQueMisAmigos(alguien, aEste) 
 	}
+	method trabajar(alguien){}
 }
 
 object buenazo{
@@ -30,9 +33,17 @@ object buenazo{
 			return 0.5 * alguienAValorar.nivelDeFelicidad()
 	}
 	
-	method leGusta(alguien, aEste){
+	method leAtrae(alguien, aEste){
 		return true
 	}
+	
+	method trabajar(alguien){
+		if (alguien.trabajaConTodosSusAmigos()){
+			alguien.cambiarFelicidadEn(alguien.felicidad * 0.1)
+		}
+		else{}
+	}
+	
 }
 
 object peleadoConLaVida{
@@ -40,7 +51,8 @@ object peleadoConLaVida{
 			return 0
 	}
 	
-	method leGusta(alguien, aEste){
+	method leAtrae(alguien, aEste){
 		return alguien.nivelDeFelicidad() < 200
 	}
+	method trabajar(alguien){}
 }

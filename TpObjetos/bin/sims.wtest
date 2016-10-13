@@ -78,6 +78,10 @@ object fixture{
 	}
 }
 
+object martin{}
+object lucia{}
+object colo{}
+
 test "Valora bien el amigo interesado"{
 	var unSim = fixture.unSimConAmigos()
 	assert.equals(23, interesado.obtenerValoracionDeAlguien(unSim))
@@ -330,7 +334,7 @@ test "Si dos sims se ponen en parejas, los amigos del primero son los de el mas 
 	unSimPareja.agregarAmigo(amigoDeLaPareja)
 	unSimPareja.agregarAmigo(otroAmigoSim)
 	unSim.enRelacionCon(unSimPareja)
-	assert.equals([amigoSim, otroAmigoSim, amigoDeLaPareja], unSim.listaDeAmigos())
+	assert.equals([amigoSim, amigoDeLaPareja, otroAmigoSim], unSim.listaDeAmigos())
 }
 
 //16
