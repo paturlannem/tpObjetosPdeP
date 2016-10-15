@@ -1,12 +1,11 @@
 import personalidades.*
-import trabajos.*
 import tiposDeTrabajo.*
 import estadosDeAnimo.*
 import celos.*
-
-//package sexo {	
-//object hombre {}
-//object mujer {}
+import estadoCivil.*
+	
+object hombre {}
+object mujer {}
 
 
 class Sim{
@@ -17,14 +16,12 @@ class Sim{
 	var personalidad
 	var dinero
 	var sexoDePreferencia
-	var estaEnPareja = false
-	var suPareja
-	var amigosDeSiempre = []
-	var trabajo
+	var estadoCivil = soltero
+	var tipoDeTrabajo = new Desocupado()
 	var estadoDeAnimo = normal
 	var conocimiento = []
 	
-	constructor(unSexo, unaEdad, unNivelDeFelicidad, amigosDelSim, unaPersonalidad, cantDinero, unSexoDePreferencia, unTrabajo){
+	constructor(unSexo, unaEdad, unNivelDeFelicidad, amigosDelSim, unaPersonalidad, cantDinero, unSexoDePreferencia){
 		sexo = unSexo
 		edad = unaEdad
 		nivelDeFelicidad = unNivelDeFelicidad
@@ -32,7 +29,6 @@ class Sim{
 		personalidad = unaPersonalidad
 		dinero = cantDinero
 		sexoDePreferencia = unSexoDePreferencia
-		trabajo = unTrabajo
 	}
 
 	//GETTERS
@@ -49,7 +45,7 @@ class Sim{
 		return nivelDeFelicidad
 	}
 	
-	method amigosDelSim(){
+	method amigos(){
 		return amigos
 	}
 	
@@ -61,16 +57,12 @@ class Sim{
 		return dinero
 	}
 	
-	method estaEnPareja(){
-		return estaEnPareja
+	method estadoCivil(){
+		return estadoCivil
 	}
 	
-	method suPareja(){
-		return suPareja
-	}
-	
-	method trabajo(){
-		return trabajo
+	method tipoDeTrabajo(){
+		return tipoDeTrabajo
 	}
 	
 	method conocimiento(){
@@ -97,13 +89,17 @@ class Sim{
 	method setAmigos(amigosDelSim){
 		amigos = amigosDelSim
 	}
+	
+	method setDinero(unaCantidadDeDinero){
+		dinero = unaCantidadDeDinero
+	}
 		
 	method setPersonalidad(unaPersonalidad){
 		personalidad = unaPersonalidad
 	}
 	
-	method setTrabajo(unTrabajo) {
-		trabajo = unTrabajo
+	method setTipoDeTrabajo(unTipoDeTrabajo) {
+		tipoDeTrabajo = unTipoDeTrabajo
 	}
 	
 	method setEstadoDeAnimo(unEstadoDeAnimo){
@@ -114,18 +110,19 @@ class Sim{
 		conocimiento = conocimientos
 	}
 	
+	method setEstadoCivil(unEstadoCivil){
+		estadoCivil = unEstadoCivil
+	}
+	
 	// FIN SETTERS
 	
 	method dineroDeAmigos(){
-		return amigos.sum({unAmigo=>unAmigo.dinero()})
+		return amigos.sum({unAmigo => unAmigo.dinero()})
 	}
 	
 	method agregarAmigo(unAmigo){
 		amigos.add(unAmigo)
 		nivelDeFelicidad += personalidad.obtenerValoracionDeAlguien(unAmigo)
-		if (estaEnPareja = true){
-			amigosDeSiempre.add(unAmigo)
-		}
 	}
 	
 	method amigoAQuienMasValora(){
@@ -134,7 +131,6 @@ class Sim{
 	
 	method eliminarAmigo(unAmigo){
 			amigos.remove(unAmigo)
-			amigosDeSiempre.remove(unAmigo)
 	}
 	
 	method esAmigoDe(unAmigo){
@@ -153,16 +149,20 @@ class Sim{
 		return amigos.sum({unAmigo => unAmigo.nivelDeFelicidad()})	
 	}
 	
+	method esMasPopularQue(unAmigo){
+		return unAmigo.popularidad() > self.popularidad()
+	}
+	
 	method esElMasPopularDeSusAmigos(){
-		return amigos.all({unAmigo => unAmigo.esMasPopular(self)})
+		return amigos.all({unAmigo => unAmigo.esMasPopularQue(self)})
 	}
 	
 	method esDelSexoDeSuPreferencia(unSim){
 		return unSim.sexo() == sexoDePreferencia
 	}
-	// se repite el nombre del metodo con un metodo en personalidades, el otro metodo recibe 2 parametros, confunde cuando se usa en los test
+
 	method leAtrae(unSim){
-		return self.esDelSexoDeSuPreferencia(unSim) && personalidad.leAtrae(unSim, self)
+		return self.esDelSexoDeSuPreferencia(unSim) && personalidad.leAtraeA(unSim, self)
 	}
 	
 	method darAbrazoComunA(alguien){
@@ -173,11 +173,11 @@ class Sim{
 	method darAbrazoProlongadoA(alguien){
 		if(alguien.leAtrae(self)){
 			alguien.setEstadoDeAnimo(soniador)
-			alguien.estadoDeAnimo().aplicarEstado()
+			soniador.aplicarEstado(alguien)
 		}
 		else{
 			alguien.setEstadoDeAnimo(incomodidad)
-			alguien.estadoDeAnimo().aplicarEstado()
+			incomodidad.aplicarEstado(alguien)
 		}
 	}
 	
@@ -185,52 +185,64 @@ class Sim{
 		self.setEstadoDeAnimo(normal)
 	}
 	
-	method ponerEnPareja(alguien){
-		estaEnPareja = true
-		suPareja = alguien
-	}
-	
-	method romperRelacion(){
-		estaEnPareja = false
-		suPareja = null
-		amigos = amigosDeSiempre
-	}
-	
 	method unirAmigos(unSim){
-		amigosDeSiempre = amigos
-		amigos = (amigos + unSim.amigosDelSim()).asSet() 
+		amigos = (amigos + unSim.amigos()).asSet().asList()
+		self.eliminarAmigo(estadoCivil.pareja())
+		self.eliminarAmigo(self) 
+	}
+	
+	method meAtraeYLeAtraigo(unSim){
+		return self.leAtrae(unSim) && unSim.leAtrae(self)
+	}
+	
+	method ponerEnRelacion(alguien){
+		estadoCivil = new Relacion(alguien, amigos)
+		alguien.setEstadoCivil(new Relacion(self, alguien.amigos()))
 	}
 	
 	method iniciarRelacionCon(unSim){
-		if (self.leAtrae(unSim) && unSim.leAtrae(self)){
-			self.ponerEnPareja(unSim)
-			unSim.ponerEnPareja(self)
+		if (self.meAtraeYLeAtraigo(unSim)){
+			self.ponerEnRelacion(unSim)
 			self.unirAmigos(unSim)
 			unSim.unirAmigos(self)
 		}	
 	}
 	
-	method simsEnPareja(){
-		return [self, suPareja]
-	}
-	
 	method leAtraeUnAmigo(){
 		return amigos.any({unAmigo => self.leAtrae(unAmigo)})
+	} 
+	
+	method volverALosAmigosDeSiempre(){
+		amigos = estadoCivil.amigosDeSiempre()
 	}
 	
-	method sePudreTodoConSuPareja(){
-		if (self.leAtraeUnAmigo() || suPareja.leAtraeUnAmigo()){
-			suPareja.romperRelacion()
-			self.romperRelacion()
+	method noEstaFuncionandoLaRelacion(){
+		if (self.leAtraeUnAmigo() || estadoCivil.pareja().leAtraeUnAmigo()){
+			self.volverALosAmigosDeSiempre()
+			estadoCivil.pareja().volverALosAmigosDeSiempre()
+			estadoCivil.pareja().setEstadoCivil(soltero)
+			estadoCivil = soltero
 		}
 	}
 	
+	method consigueTrabajoCopado(){
+		tipoDeTrabajo = new Copado(300, 100)
+	}
+	
+	method consigueTrabajoAburrido(){
+		tipoDeTrabajo = new Aburrido(600, 200)
+	}
+	
+	method consigueTrabajoMercenario(){
+		tipoDeTrabajo = new Mercenario()
+	}
+	
 	method trabajaConTodosSusAmigos(){
-		return amigos.all({unAmigo => unAmigo.trabajo() == trabajo})
+		return amigos.all({unAmigo => unAmigo.trabajo() == tipoDeTrabajo})
 	}
 	
 	method irATrabajar(){
-		trabajo.tipoDeTrabajo().trabajar(self)
+		tipoDeTrabajo.pasarUnDiaDeTrabajo(self)
 		personalidad.trabajar(self)
 	}
 
@@ -248,20 +260,29 @@ class Sim{
 		self.setConocimiento([])
 	}
 	
-	method esMasRico(unAmigo){
-		return unAmigo.dinero() > dinero
+	method esMasRicoQue(unAmigo){
+		return unAmigo.dinero() < dinero
 	}
 	
 	method eliminarAmigosMasRicos(){
-		return amigos.filter({unAmigo => !(self.esMasRico(unAmigo))})
+		amigos = amigos.filter({unAmigo => self.esMasRicoQue(unAmigo)})
 	}	
 	
 	method esAmigoDeMiPareja(unAmigo){
-		return suPareja.amigos().contains(unAmigo)
+		return estadoCivil.pareja().amigos().contains(unAmigo)
 	}
 	
 	method eliminarAmigosQueSonAmigosDeMiPareja(){
-		return amigos.filter({unAmigo => !(self.esAmigoDeMiPareja(unAmigo))})
+		amigos = amigos.filter({unAmigo => !(self.esAmigoDeMiPareja(unAmigo))})
+	}
+	
+	method eliminarAmigosMasPopulares(){
+		amigos = amigos.filter({unAmigo => self.esMasPopularQue(unAmigo)})
 	}
 }
 
+object martin inherits Sim(hombre, 25, 100, [lu, colo, ber], buenazo, 2000, mujer){}
+object lu inherits Sim(mujer, 26, 100, [gise, colo], interesado, 100, hombre){}
+object gise inherits Sim(mujer, 26, 80, [lu, colo], peleadoConLaVida, 80, hombre){}
+object colo inherits Sim(hombre, 27, 20, [martin, ber], interesado, 0, mujer){}
+object ber inherits Sim(hombre, 26, 30, [martin], superficial, 50, mujer){}
