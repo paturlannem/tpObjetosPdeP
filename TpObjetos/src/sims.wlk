@@ -49,10 +49,6 @@ class Sim{
 		return amigos
 	}
 	
-	method personalidad(){
-		return personalidad
-	}
-	
 	method dinero(){
 		return dinero
 	}
@@ -73,45 +69,28 @@ class Sim{
 		return estadoDeAnimo
 	}
 	//SETTERS
-	
-	method setEdad(unaEdad){
-		edad = unaEdad
+	method dinero(cantDinero){
+		dinero = cantDinero
 	}
 	
-	method setSexo(unSexo){
-		sexo = unSexo
-	}
-	
-	method setNivelDeFelicidad(unNivelDeFelicidad){
+	method nivelDeFelicidad(unNivelDeFelicidad){
 		nivelDeFelicidad = unNivelDeFelicidad
 	}
 	
-	method setAmigos(amigosDelSim){
-		amigos = amigosDelSim
-	}
-	
-	method setDinero(unaCantidadDeDinero){
-		dinero = unaCantidadDeDinero
-	}
-		
-	method setPersonalidad(unaPersonalidad){
-		personalidad = unaPersonalidad
-	}
-	
-	method setTipoDeTrabajo(unTipoDeTrabajo) {
-		tipoDeTrabajo = unTipoDeTrabajo
-	}
-	
-	method setEstadoDeAnimo(unEstadoDeAnimo){
+	method estadoDeAnimo(unEstadoDeAnimo){
 		estadoDeAnimo = unEstadoDeAnimo 
 	}
 	
-	method setConocimiento(conocimientos){
+	method conocimiento(conocimientos){
 		conocimiento = conocimientos
 	}
 	
-	method setEstadoCivil(unEstadoCivil){
+	method estadoCivil(unEstadoCivil){
 		estadoCivil = unEstadoCivil
+	}
+	
+	method personalidad(){
+		return personalidad
 	}
 	
 	// FIN SETTERS
@@ -172,17 +151,17 @@ class Sim{
 	
 	method darAbrazoProlongadoA(alguien){
 		if(alguien.leAtrae(self)){
-			alguien.setEstadoDeAnimo(soniador)
+			alguien.estadoDeAnimo(soniador)
 			soniador.aplicarEstado(alguien)
 		}
 		else{
-			alguien.setEstadoDeAnimo(incomodidad)
+			alguien.estadoDeAnimo(incomodidad)
 			incomodidad.aplicarEstado(alguien)
 		}
 	}
 	
 	method volverALaNormalidad(){
-		self.setEstadoDeAnimo(normal)
+		self.estadoDeAnimo(normal)
 	}
 	
 	method unirAmigos(unSim){
@@ -197,7 +176,7 @@ class Sim{
 	
 	method ponerEnRelacion(alguien){
 		estadoCivil = new Relacion(alguien, amigos)
-		alguien.setEstadoCivil(new Relacion(self, alguien.amigos()))
+		alguien.estadoCivil(new Relacion(self, alguien.amigos()))
 	}
 	
 	method iniciarRelacionCon(unSim){
@@ -220,7 +199,7 @@ class Sim{
 		if (self.leAtraeUnAmigo() || estadoCivil.pareja().leAtraeUnAmigo()){
 			self.volverALosAmigosDeSiempre()
 			estadoCivil.pareja().volverALosAmigosDeSiempre()
-			estadoCivil.pareja().setEstadoCivil(soltero)
+			estadoCivil.pareja().estadoCivil(soltero)
 			estadoCivil = soltero
 		}
 	}
@@ -257,7 +236,7 @@ class Sim{
 	}
 	
 	method leAgarraAmnesia(){
-		self.setConocimiento([])
+		self.conocimiento([])
 	}
 	
 	method esMasRicoQue(unAmigo){

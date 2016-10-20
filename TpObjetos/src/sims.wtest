@@ -324,7 +324,7 @@ test "Si dos sims se ponen en pareja, los amigos del primero se unen con los de 
 	unSimPareja.agregarAmigo(amigoDeLaPareja)
 	unSimPareja.agregarAmigo(otroAmigoSim)
 	unSim.iniciarRelacionCon(unSimPareja)
-	assert.equals([otroAmigoSim, amigoSim, amigoDeLaPareja], unSim.amigos())
+	assert.equals([amigoDeLaPareja, otroAmigoSim, amigoSim], unSim.amigos())
 }
 
 //16
@@ -410,14 +410,14 @@ test "Si le agarra amnesia, se queda sin conocimientos"{
 //26
 test "Si asigno un estado de animo, el sim cambia de estado"{
 	var unSim = fixture.unSimBuenazo()
-	unSim.setEstadoDeAnimo(soniador)
+	unSim.estadoDeAnimo(soniador)
 	assert.equals(soniador, unSim.estadoDeAnimo())
 }
 
 //27
 test "Hacer que un sim vuelva a la normalidad"{
 	var unSim = fixture.unSimBuenazo()
-	unSim.setEstadoDeAnimo(soniador)
+	unSim.estadoDeAnimo(soniador)
 	unSim.volverALaNormalidad()
 	assert.equals(normal, unSim.estadoDeAnimo())
 }

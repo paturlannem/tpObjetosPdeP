@@ -39,7 +39,7 @@ object buenazo{
 	
 	method trabajar(alguien){
 		if (alguien.trabajaConTodosSusAmigos()){
-			alguien.setNivelDeFelicidad(alguien.felicidad() + alguien.felicidad()*0.1)
+			alguien.nivelDeFelicidad(alguien.felicidad() + alguien.felicidad()*0.1)
 		}
 		else{}
 	}
