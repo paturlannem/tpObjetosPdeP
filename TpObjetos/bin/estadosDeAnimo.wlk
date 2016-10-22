@@ -1,17 +1,13 @@
-object normal{}
+import sims.*
+
+object normal{
+	method aplicarEstado(alguien){}
+}
 
 object soniador{
-	method cambiarFelicidadDeSoniador(alguien){
-		var felicidadActual = alguien.nivelDeFelicidad()
-		alguien.setNivelDeFelicidad(1000 + felicidadActual)
-	}	
-	method borrarConocimiento(alguien){
-		alguien.conocimiento().clear()
-	}
-	
 	method aplicarEstado(alguien){
-		self.cambiarFelicidadDeSoniador(alguien)
-		self.borrarConocimiento(alguien)
+		alguien.cambiarFelicidadEn(1000)
+		alguien.leAgarraAmnesia()
 	}
 }
 

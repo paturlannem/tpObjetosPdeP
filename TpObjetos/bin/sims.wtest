@@ -1,85 +1,74 @@
 import sims.*
 import personalidades.*
-import trabajos.*
 import tiposDeTrabajo.*
 import estadosDeAnimo.*
 import celos.*
-
-//assert.equals( A, a probar que es A)
-//assert.that(algo que esperamos V)
-//assert.notThat(algo que esperamos F)
+import estadoCivil.*
 
 object fixture{
 	
 	method unSimSinAmigos(){
-		return new Sim(true, 20, 100, [], buenazo, 0, false, medico)
+		return new Sim(hombre, 20, 100, [], buenazo, 0, mujer)
 	}
 	
 	method unSimInteresado(){
-		return new Sim(true, 32, 60, [], interesado, 100, false, empresario)
+		return new Sim(hombre, 32, 60, [], interesado, 100, mujer)
 	}
 	
 	method unSimBuenazo(){
-		return new Sim(false, 15, 90, [], buenazo, 50, true, bailarin)
+		return new Sim(mujer, 15, 90, [], buenazo, 50, hombre)
 	}
 	
 	method unSimSuperficial(){
-		return new Sim(false, 34, 80, [], superficial, 80, true, medico)
+		return new Sim(mujer, 34, 80, [], superficial, 80, hombre)
 	}
 	
 	method unSimPeleadoConLaVida(){
-		return new Sim(true, 55, 10, [], peleadoConLaVida, 20, false, empresario)
+		return new Sim(hombre, 55, 10, [], peleadoConLaVida, 20, mujer)
 	}
 	
 	method unSimConAmigos(){
-		return new Sim(true, 34, 100, [self.unSimSuperficial(), self.unSimBuenazo(), self.unSimSinAmigos(), self.unSimInteresado()], buenazo, 40, false, bailarin)
+		return new Sim(hombre, 34, 100, [self.unSimSuperficial(), self.unSimBuenazo(), self.unSimSinAmigos(), self.unSimInteresado()], buenazo, 40, mujer)
 	}
 	
 	method unSimConOtrosAmigos(){
-		return new Sim(false, 34, 100, [self.unSimBuenazo()], buenazo, 40, true, bailarin)
+		return new Sim(mujer, 34, 100, [self.unSimBuenazo()], buenazo, 40, hombre)
 	}
 	
 	method unSimMasPopularQueSusAmigos(){
-		return new Sim(true, 20, 100, [self.unSimSuperficial(), self.unSimSuperficial(), self.unSimSuperficial()], buenazo, 40, false, medico)
+		return new Sim(hombre, 20, 100, [self.unSimSuperficial(), self.unSimSuperficial(), self.unSimSuperficial()], buenazo, 40, mujer)
 	}
 	
 	method unSimConPopularidad20(){
-		return new Sim(true, 55, 10, [self.unSimPeleadoConLaVida(), self.unSimPeleadoConLaVida()], peleadoConLaVida, 20, false, medico)
+		return new Sim(hombre, 55, 10, [self.unSimPeleadoConLaVida(), self.unSimPeleadoConLaVida()], peleadoConLaVida, 20, mujer)
 	}
 	
 	method unSimConFelicidad100(){
-		return new Sim(true, 55, 100, [], buenazo, 20, false, empresario)
+		return new Sim(hombre, 55, 100, [], buenazo, 20,mujer)
 	}
 	
 	method unSimVaronQueLeAtraenMujeres(){
-		return new Sim(true, 0, 0, [self.unSimConFelicidad100()], buenazo, 0, false, bailarin)
+		return new Sim(hombre, 0, 0, [self.unSimConFelicidad100()], buenazo, 0, mujer)
 	}
 	
 	method unSimMujerQueLeAtraenVarones(){
-		return new Sim(false, 0, 0, [], buenazo, 0, true, medico)
+		return new Sim(mujer, 0, 0, [], buenazo, 0,hombre)
 	}
 	
 	method unSimConPlata(){
-		return new Sim(false, 0, 0, [], peleadoConLaVida, 1000000, true, empresario)
+		return new Sim(mujer, 0, 0, [], peleadoConLaVida, 1000000, hombre)
 	}
 	
 	method unSimPobre(){
-		return new Sim(false, 0, 0, [], buenazo, 1, true, bailarin)
+		return new Sim(mujer, 0, 0, [], buenazo, 1, hombre)
 	}
 	
 	method unSimDeFelicidad199(){
-		return new Sim(false, 0, 199, [], buenazo, 1, true, medico)
+		return new Sim(mujer, 0, 199, [], buenazo, 1, hombre)
 	}
 	
-	method unSimConAmigosNumeros(){
-		return new Sim(false, 0, 0, [1,2,3], buenazo, 1, true, empresario)
-	}
-	
-	method unSimConAmigosOtrosNumeros(){
-		return new Sim(true, 0, 0, [3, 4], buenazo, 1, false, bailarin)
-	}
 	method unSimDesempleado(){
-		return new Sim (true, 30, 50, [], peleadoConLaVida, 50, false, desempleado)
+		return new Sim (hombre, 30, 50, [], peleadoConLaVida, 50,mujer)
 	}
 }
 
@@ -130,53 +119,46 @@ test "A un sim le atrae otro si es del sexo de su preferencia"{
 test "A un sim interesado le atrae otro si duplica su fortuna"{
 	var unSimRico = fixture.unSimConPlata()
 	var otroSimPobre = fixture.unSimPobre()
-	assert.that(interesado.leAtrae(unSimRico, otroSimPobre))
+	assert.that(interesado.leAtraeA(unSimRico, otroSimPobre))
 }
 
 test "A un sim superficial le atrae otro si tiene mas o igual popularidad"{
 	var unSimConPopularidad = fixture.unSimConAmigos()
 	var otroSimSinPopularidad = fixture.unSimPobre()
-	assert.that(interesado.leAtrae(unSimConPopularidad, otroSimSinPopularidad))
+	assert.that(interesado.leAtraeA(unSimConPopularidad, otroSimSinPopularidad))
 }
 
 test "A un sim buenazo le atrae otro"{
 	var unSim = fixture.unSimConAmigos()
 	var otroSim = fixture.unSimPobre()
-	assert.that(buenazo.leAtrae(unSim, otroSim))
+	assert.that(buenazo.leAtraeA(unSim, otroSim))
 }
 
 test "A un sim peleado con la vida le atrae otro si el otro tiene menos de 200 de felicidad"{
 	var unSim = fixture.unSimConAmigos()
 	var unSimTriste = fixture.unSimDeFelicidad199()
-	assert.that(buenazo.leAtrae(unSimTriste, unSim))
+	assert.that(buenazo.leAtraeA(unSimTriste, unSim))
 }
 
 test "Si un sim se pone en pareja, suPareja es el sim con que se relaciona"{
 	var unSim = fixture.unSimBuenazo()
 	var unSimPareja = fixture.unSimSinAmigos()
-	unSim.enRelacionCon(unSimPareja)
-	assert.equals(unSimPareja, unSim.suPareja())
-}
-
-test "Si un sim se pone en pareja, cambia de la pareja el atributo suPareja con el sim que se relaciona"{
-	var unSim = fixture.unSimBuenazo()
-	var unSimPareja = fixture.unSimSinAmigos()
-	unSim.enRelacionCon(unSimPareja)
-	assert.equals(unSim, unSimPareja.suPareja())
+	unSim.iniciarRelacionCon(unSimPareja)
+	assert.equals(unSimPareja, unSim.estadoCivil().pareja())
 }
 
 test "Si no se atraen, no se ponen en pareja"{
 	var unSim = fixture.unSimInteresado()
 	var unSimPareja = fixture.unSimPeleadoConLaVida()
-	unSim.enRelacionCon(unSimPareja)
-	assert.notThat(unSimPareja.estaEnPareja())
+	unSim.iniciarRelacionCon(unSimPareja)
+	assert.equals(soltero, unSimPareja.estadoCivil())
 }
 
 test "Si no son del sexo de su preferencia, no se ponen en pareja"{
 	var unSim = fixture.unSimVaronQueLeAtraenMujeres()
 	var unSimPareja = fixture.unSimVaronQueLeAtraenMujeres()
-	unSim.enRelacionCon(unSimPareja)
-	assert.notThat(unSimPareja.estaEnPareja())
+	unSim.iniciarRelacionCon(unSimPareja)
+	assert.equals(soltero, unSimPareja.estadoCivil())
 }
 
 test "No se agrega un conocimiento que ya tiene el sim"{
@@ -233,7 +215,7 @@ test "Agrego un amigo a un sim y aumenta cantidad de lista de amigos"{
 	var simSolitario = fixture.unSimSinAmigos()
 	var otroSim = fixture.unSimInteresado()
 	simSolitario.agregarAmigo(otroSim)
-	assert.equals(1, simSolitario.listaDeAmigos().size())
+	assert.equals(1, simSolitario.amigos().size())
 }
 
 //5
@@ -265,7 +247,7 @@ test "Consulta los primeros 4 amigos que agregó"{
 	unSim.agregarAmigo(segundoAmigo)
 	unSim.agregarAmigo(tercerAmigo)
 	unSim.agregarAmigo(cuartoAmigo)
-	assert.equals([primerAmigo, segundoAmigo, tercerAmigo, cuartoAmigo], unSim.listaDeAmigos().take(4))
+	assert.equals([primerAmigo, segundoAmigo, tercerAmigo, cuartoAmigo], unSim.amigos().take(4))
 }
 
 //8
@@ -279,10 +261,10 @@ test "Consulta los ultimos 4 amigos que agregó"{
 	unSim.agregarAmigo(otroAmigo)
 	unSim.agregarAmigo(tercerAmigo)
 	unSim.agregarAmigo(cuartoAmigo)
-	var anteAntePenultimoAmigo = unSim.listaDeAmigos().get(unSim.cantidadDeAmigosQueTiene() - 4)
-	var antePenultimoAmigo = unSim.listaDeAmigos().get(unSim.cantidadDeAmigosQueTiene() - 3)
-	var penultimoAmigo = unSim.listaDeAmigos().get(unSim.cantidadDeAmigosQueTiene() - 2)
-	var ultimoAmigo = unSim.listaDeAmigos().get(unSim.cantidadDeAmigosQueTiene() - 1)
+	var anteAntePenultimoAmigo = unSim.amigos().get(unSim.cantidadDeAmigosQueTiene() - 4)
+	var antePenultimoAmigo = unSim.amigos().get(unSim.cantidadDeAmigosQueTiene() - 3)
+	var penultimoAmigo = unSim.amigos().get(unSim.cantidadDeAmigosQueTiene() - 2)
+	var ultimoAmigo = unSim.amigos().get(unSim.cantidadDeAmigosQueTiene() - 1)
 	var ultimos4Amigos = [anteAntePenultimoAmigo, antePenultimoAmigo, penultimoAmigo, ultimoAmigo]
 	assert.equals([unAmigo, otroAmigo, tercerAmigo, cuartoAmigo], ultimos4Amigos)
 }
@@ -300,69 +282,83 @@ test "Es el mas popular de su lista de amigos"{
 }
 
 //11 y 12
-test "Si un sim se ponen en pareja, estado en pareja cambia a true"{
+test "Si un sim se pone en pareja, estado civil deja de ser soltero"{
 	var unSim = fixture.unSimBuenazo()
 	var unSimPareja = fixture.unSimSinAmigos()
-	unSim.enRelacionCon(unSimPareja)
-	assert.that(unSim.estaEnPareja())
+	unSim.iniciarRelacionCon(unSimPareja)
+	assert.notThat(unSim.estadoCivil() == soltero)
 }
 
-test "Si un sim se pone en pareja, estado de enPareja de la pareja cambia a true"{
+test "Si un sim se pone en pareja, estado civil de la pareja deja de ser soltero"{
 	var unSim = fixture.unSimBuenazo()
 	var unSimPareja = fixture.unSimSinAmigos()
-	unSim.enRelacionCon(unSimPareja)
-	assert.that(unSimPareja.estaEnPareja())
+	unSim.iniciarRelacionCon(unSimPareja)
+	assert.notThat(unSimPareja.estadoCivil() == soltero)
+}
+
+test "Si un sim se pone en pareja, tiene pareja"{
+	var unSim = fixture.unSimBuenazo()
+	var unSimPareja = fixture.unSimSinAmigos()
+	unSim.iniciarRelacionCon(unSimPareja)
+	assert.equals(unSimPareja, unSim.estadoCivil().pareja())
 }
 
 //13, 14 y 18
-test "Si entre dos sims se pudre todo, quedan sin pareja"{
+test "Si entre dos sims se pudre todo, vuelven a estar solteros"{
 	var unSim = fixture.unSimVaronQueLeAtraenMujeres()
 	var unSimPareja = fixture.unSimMujerQueLeAtraenVarones()
-	unSim.enRelacionCon(unSimPareja)
-	unSim.sePudreTodoConSuPareja()
-	assert.notThat(unSim.estaEnPareja())
+	unSim.iniciarRelacionCon(unSimPareja)
+	unSim.noEstaFuncionandoLaRelacion()
+	assert.equals(soltero, unSim.estadoCivil())
 }
 
 //15
-test "Si dos sims se ponen en parejas, los amigos del primero son los de el mas los de la pareja"{
+test "Si dos sims se ponen en pareja, los amigos del primero se unen con los de la pareja"{
 	var unSim = fixture.unSimSinAmigos()
 	var unSimPareja = fixture.unSimBuenazo()
 	var amigoSim = fixture.unSimSuperficial()
 	var otroAmigoSim = fixture.unSimInteresado() 
-	var amigoDeLaPareja = fixture.unSimConAmigos()
+	var amigoDeLaPareja = fixture.unSimPeleadoConLaVida()
 	unSim.agregarAmigo(amigoSim)
 	unSim.agregarAmigo(otroAmigoSim)
 	unSimPareja.agregarAmigo(amigoDeLaPareja)
 	unSimPareja.agregarAmigo(otroAmigoSim)
-	unSim.enRelacionCon(unSimPareja)
-	assert.equals([amigoSim, otroAmigoSim, amigoDeLaPareja], unSim.listaDeAmigos())
+	unSim.iniciarRelacionCon(unSimPareja)
+	assert.equals([amigoDeLaPareja, otroAmigoSim, amigoSim], unSim.amigos())
 }
 
 //16
-test "Si se ponen en pareja, conocer los nombres de la relacion"{
+test "Si se ponen en pareja, conocer los nombres de la relacion, el de su mujer"{
 	var unSim = fixture.unSimVaronQueLeAtraenMujeres()
 	var unSimPareja = fixture.unSimMujerQueLeAtraenVarones()
-	unSim.enRelacionCon(unSimPareja)
-	assert.equals([unSim, unSimPareja], unSim.simsEnPareja())
+	unSim.iniciarRelacionCon(unSimPareja)
+	assert.equals(unSimPareja, unSim.estadoCivil().pareja())
+}
+
+test "Si se ponen en pareja, conocer los nombres de la relacion, el de su marido"{
+	var unSim = fixture.unSimVaronQueLeAtraenMujeres()
+	var unSimPareja = fixture.unSimMujerQueLeAtraenVarones()
+	unSim.iniciarRelacionCon(unSimPareja)
+	assert.equals(unSim, unSimPareja.estadoCivil().pareja())
 }
 
 //17
 test "Si funciona la relacion, entonces no se pudre todo"{
 	var unSim = fixture.unSimBuenazo()
 	var unSimPareja = fixture.unSimSinAmigos()
-	unSim.enRelacionCon(unSimPareja)
-	unSim.sePudreTodoConSuPareja()
-	assert.that(unSim.estaEnPareja())
+	unSim.iniciarRelacionCon(unSimPareja)
+	unSim.noEstaFuncionandoLaRelacion()
+	assert.that(unSim.estadoCivil() != soltero)
 }
 
 //19
 test "Si se pelean, pero se atraen, comienzan de vuelta una relacion"{
 	var unSim = fixture.unSimVaronQueLeAtraenMujeres()
 	var unSimPareja = fixture.unSimMujerQueLeAtraenVarones()
-	unSim.enRelacionCon(unSimPareja)
-	unSim.sePudreTodoConSuPareja()
-	unSim.enRelacionCon(unSimPareja)
-	assert.that(unSim.estaEnPareja())
+	unSim.iniciarRelacionCon(unSimPareja)
+	unSim.noEstaFuncionandoLaRelacion()
+	unSim.iniciarRelacionCon(unSimPareja)
+	assert.that(unSim.estadoCivil() != soltero)
 }
 
 //20
@@ -414,14 +410,14 @@ test "Si le agarra amnesia, se queda sin conocimientos"{
 //26
 test "Si asigno un estado de animo, el sim cambia de estado"{
 	var unSim = fixture.unSimBuenazo()
-	unSim.setEstadoDeAnimo(soniador)
+	unSim.estadoDeAnimo(soniador)
 	assert.equals(soniador, unSim.estadoDeAnimo())
 }
 
 //27
 test "Hacer que un sim vuelva a la normalidad"{
 	var unSim = fixture.unSimBuenazo()
-	unSim.setEstadoDeAnimo(soniador)
+	unSim.estadoDeAnimo(soniador)
 	unSim.volverALaNormalidad()
 	assert.equals(normal, unSim.estadoDeAnimo())
 }
@@ -433,24 +429,19 @@ test "Hacer que un sim se ponga celoso"{
 	var simPobre = fixture.unSimPobre()
 	unSim.agregarAmigo(otroSim)
 	unSim.agregarAmigo(simPobre)
-	CelosPorPlata.efectoDeCelos(unSim)
-	assert.equals([simPobre], unSim.listaDeAmigos())
+	unSim.sePoneCelosoPorPlata()
+	assert.equals([simPobre], unSim.amigos())
 }
 
 //29
 test "Un sim va a trabajar"{
 	var unSim = fixture.unSimSuperficial()
+	unSim.consigueTrabajoCopado()
 	unSim.irATrabajar()
-	assert.equals(110, unSim.nivelDeFelicidad())
+	assert.equals(180, unSim.nivelDeFelicidad())
 }
 test "Un sim desempleado va a trabajar" {
 	var unSim = fixture.unSimDesempleado()
 	unSim.irATrabajar()
 	assert.equals(50, unSim.nivelDeFelicidad())
 }
-
-//30
-/* Los ataques de celos repiten mucha logica, se podría 
- * utilizar métodos con orden superior(pasar un método como parámetro)
- *  para resolver la situacion
- */

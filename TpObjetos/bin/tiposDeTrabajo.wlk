@@ -1,17 +1,45 @@
-class TiposDeTrabajo{
-	method trabajar(alguien){
-		var cantDeFelicidadACambiar = alguien.trabajo().felicidadQueGenera()
-		var cantDeDineroACambiar = alguien.trabajo().remuneracion()
-		alguien.cambiarFelicidadEn(cantDeFelicidadACambiar)
-		alguien.aumentarDineroEn(alguien, cantDeDineroACambiar)
+class TipoDeTrabajo{
+	method pasarUnDiaDeTrabajo(alguien){}
+}
+
+class Desocupado inherits TipoDeTrabajo{
+	override method pasarUnDiaDeTrabajo(alguien){}
+}
+
+class Mercenario inherits TipoDeTrabajo{
+	override method pasarUnDiaDeTrabajo(alguien){
+		alguien.dinero(alguien.dinero() + 100 + (alguien.dinero()*0.02))
 	}
 }
 
-object copado inherits TiposDeTrabajo{}
-object aburrido inherits TiposDeTrabajo{}
+class TrabajosQueGeneranDineroYFelicidad inherits TipoDeTrabajo{
+	var dineroQueGenera
+	var felicidadQueGenera
+	
+	constructor(unaCantidadDeDinero, unaCantidadDeFelicidad){
+		dineroQueGenera = unaCantidadDeDinero
+		felicidadQueGenera = unaCantidadDeFelicidad
+	}
+}
 
-object mercenario{
-	method trabajar(alguien, cant){		
-		alguien.aumentarDinero(100 + (alguien.dinero *0.2) + cant)
+class Copado inherits TrabajosQueGeneranDineroYFelicidad{
+	
+	constructor(unaCantidadDeDinero, unaCantidadDeFelicidad) = super(unaCantidadDeDinero, unaCantidadDeFelicidad){
+	}
+	
+	override method pasarUnDiaDeTrabajo(alguien){
+		alguien.cambiarFelicidadEn(felicidadQueGenera)
+		alguien.dinero(alguien.dinero() + dineroQueGenera)
+	}
+}
+
+class Aburrido inherits TrabajosQueGeneranDineroYFelicidad{
+	
+	constructor(unaCantidadDeDinero, unaCantidadDeFelicidad) = super(unaCantidadDeDinero, unaCantidadDeFelicidad){
+	}
+	
+	override method pasarUnDiaDeTrabajo(alguien){
+		alguien.cambiarFelicidadEn(-felicidadQueGenera)
+		alguien.dinero(alguien.dinero() + dineroQueGenera)
 	}
 }
