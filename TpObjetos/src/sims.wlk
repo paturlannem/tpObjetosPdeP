@@ -3,7 +3,6 @@ import tiposDeTrabajo.*
 import estadosDeAnimo.*
 import celos.*
 import estadoCivil.*
-import fuentesDeInformacion.*
 	
 object hombre {}
 object mujer {}
@@ -278,11 +277,6 @@ class Sim{
 		var celos
 		celos = new CelosPorAmigoDePareja()
 		celos.efectosDeCelos(self)
-	}
-	
-	method obtenerConocimientoDeFuenteDeInformacion(unaFuente, unSim){
-		unaFuente.obtenerInformacionDeFuente()
-		unSim.agregarConocimiento()
 	}
 }
 
