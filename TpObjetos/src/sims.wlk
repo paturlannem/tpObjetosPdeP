@@ -3,6 +3,7 @@ import tiposDeTrabajo.*
 import estadosDeAnimo.*
 import celos.*
 import estadoCivil.*
+import fuentesDeInformacion.*
 	
 object hombre {}
 object mujer {}
