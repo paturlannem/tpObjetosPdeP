@@ -279,12 +279,3 @@ class Sim{
 		celos.efectosDeCelos(self)
 	}
 }
-
-object martin inherits Sim(hombre, 25, 100, [lu, colo, ber,valen,fran,iris], buenazo, 2000, mujer){}
-object lu inherits Sim(mujer, 26, 100, [gise, colo,iris,martin], interesado, 100, hombre){}
-object gise inherits Sim(mujer, 26, 80, [lu, colo,iris], peleadoConLaVida, 80, hombre){}
-object colo inherits Sim(hombre, 27, 20, [martin, ber,fran, valen, lu,gise,iris], interesado, 0, mujer){}
-object ber inherits Sim(hombre, 26, 30, [martin,colo,fran,valen], superficial, 50, mujer){}
-object fran inherits Sim(hombre, 26, 10, [martin,colo,valen,ber,gise], peleadoConLaVida, 10, mujer){}
-object valen inherits Sim(hombre, 24, 50, [martin,colo,fran,ber], interesado, 30, mujer){}
-object iris inherits Sim(mujer, 27, 80, [lu,gise,colo,martin], buenazo, 40, hombre){}
