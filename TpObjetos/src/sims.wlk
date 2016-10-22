@@ -278,4 +278,9 @@ class Sim{
 		celos = new CelosPorAmigoDePareja()
 		celos.efectosDeCelos(self)
 	}
+	
+	method obtenerConocimientoDeFuenteDeInformacion(unaFuente, unSim){
+		unaFuente.obtenerInformacionDeFuente()
+		unSim.agregarConocimiento(self)
+	}
 }
