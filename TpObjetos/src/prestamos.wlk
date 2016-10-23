@@ -15,25 +15,27 @@ class Prestamos {
 		}
 		
 	method prestamoInteresado(unSim, unAmigo, cantidad){
-		monto = cantidad
-		valoracionPrestamo = (interesado.obtenerValoracionDeAlquilar(unAmigo) * 10)
-		prestamoBase (unSim, unAmigo, cantidad)
+		valoracionPrestamo = (interesado.obtenerValoracionDeAlguien(unAmigo) * 10)
+		return self.prestamoBase(unSim, unAmigo, cantidad)
 		}
 	
 	method prestamo(unSim, unAmigo, cantidad){
 		monto = cantidad
-		if (unSim.unaPersonalidad() = superficial){
+		if (unSim.unaPersonalidad() == superficial){
 			valoracionPrestamo = superficial.obtenerValoracionDeAlguien(unAmigo) * 10
-			prestamoBase(unSim, unAmigo, cantidad)
+			return self.prestamoBase(unSim, unAmigo, cantidad)
 		}
 		else { 
-			if (unSim.unaPersonalidad() = buenazo){
+			if (unSim.unaPersonalidad() == buenazo){
 			valoracionPrestamo = buenazo.obtenerValoracionDeAlguien(unAmigo) * 10	
-			prestamoBase(unSim, unAmigo, cantidad)
+			return self.prestamoBase(unSim, unAmigo, cantidad)
 		}
-			else (unSim.unaPersonalidad() = peleadoConLaVida){
+			else{ 
+				if(unSim.Personalidad() == peleadoConLaVida){
 				valoracionPrestamo = peleadoConLaVida.obtenerValoracionDeAlguien(unAmigo) * 10
-				prestamoBase (unSim, unAmigo, cantidad)
+				return self.prestamoBase (unSim, unAmigo, cantidad)
+				}
+				else return "no le presta dinero"
 			}
 		}
 	}
