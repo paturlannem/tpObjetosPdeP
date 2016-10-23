@@ -35,7 +35,6 @@ class Prestamos {
 				valoracionPrestamo = peleadoConLaVida.obtenerValoracionDeAlguien(unAmigo) * 10
 				return self.prestamoBase (unSim, unAmigo, cantidad)
 				}
-				
 				else return "no le presta dinero"
 			}
 		}
