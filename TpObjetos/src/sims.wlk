@@ -177,20 +177,21 @@ class Sim{
 	}
 	
 	method ponerEnRelacion(alguien){
-		if (estadoCivil = soltero) {
+		if (estadoCivil == soltero){
 			estadoCivil = new Relacion(alguien, amigos)
-		alguien.estadoCivil(new Relacion(self, alguien.amigos()))	
+			alguien.estadoCivil(new Relacion(self, alguien.amigos()))	
 		}
-		else
+		else{
 		 error.throwWithMessage("Ya esta en una relación")
+		}
 	}
 	
-	method noEsMenorDe16(){
-		return edad >= 16
+	method EsMayorDe16(){
+		return edad > 16
 	}
 	
 	method iniciarRelacionCon(unSim){
-		if (unSim.noEsMenorDe16() && self.noEsMenorDe16() && self.meAtraeYLeAtraigo(unSim)){
+		if (unSim.EsMayorDe16() && self.EsMayorDe16() && self.meAtraeYLeAtraigo(unSim)){
 			self.ponerEnRelacion(unSim)
 			self.unirAmigos(unSim)
 			unSim.unirAmigos(self)
@@ -240,7 +241,7 @@ class Sim{
 	}
 
 	method agregarConocimiento(unConocimiento){
-		if (self.contieneConocimiento(unConocimiento)){
+		if (!self.contieneConocimiento(unConocimiento)){
 			conocimiento.add(unConocimiento)
 		}
 	}
@@ -324,3 +325,6 @@ class Vim inherits Sim{
 		edad = 18
 		}
 }
+
+object mp inherits Sim(hombre, 20, 100, [], buenazo, 0, mujer){}
+object lu inherits Sim(mujer, 18, 90, [], buenazo, 50, hombre){}

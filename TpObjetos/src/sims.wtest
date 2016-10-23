@@ -16,7 +16,7 @@ object fixture{
 	}
 	
 	method unSimBuenazo(){
-		return new Sim(mujer, 15, 90, [], buenazo, 50, hombre)
+		return new Sim(mujer, 18, 90, [], buenazo, 50, hombre)
 	}
 	
 	method unSimSuperficial(){
@@ -48,23 +48,23 @@ object fixture{
 	}
 	
 	method unSimVaronQueLeAtraenMujeres(){
-		return new Sim(hombre, 0, 0, [self.unSimConFelicidad100()], buenazo, 0, mujer)
+		return new Sim(hombre, 20, 0, [self.unSimConFelicidad100()], buenazo, 0, mujer)
 	}
 	
 	method unSimMujerQueLeAtraenVarones(){
-		return new Sim(mujer, 0, 0, [], buenazo, 0,hombre)
+		return new Sim(mujer, 20, 0, [], buenazo, 0,hombre)
 	}
 	
 	method unSimConPlata(){
-		return new Sim(mujer, 0, 0, [], peleadoConLaVida, 1000000, hombre)
+		return new Sim(mujer, 20, 0, [], peleadoConLaVida, 1000000, hombre)
 	}
 	
 	method unSimPobre(){
-		return new Sim(mujer, 0, 0, [], buenazo, 1, hombre)
+		return new Sim(mujer, 20, 0, [], buenazo, 1, hombre)
 	}
 	
 	method unSimDeFelicidad199(){
-		return new Sim(mujer, 0, 199, [], buenazo, 1, hombre)
+		return new Sim(mujer, 20, 199, [], buenazo, 1, hombre)
 	}
 	
 	method unSimDesempleado(){
@@ -324,7 +324,7 @@ test "Si dos sims se ponen en pareja, los amigos del primero se unen con los de 
 	unSimPareja.agregarAmigo(amigoDeLaPareja)
 	unSimPareja.agregarAmigo(otroAmigoSim)
 	unSim.iniciarRelacionCon(unSimPareja)
-	assert.equals([amigoDeLaPareja, otroAmigoSim, amigoSim], unSim.amigos())
+	assert.equals([otroAmigoSim, amigoDeLaPareja, amigoSim], unSim.amigos())
 }
 
 //16
