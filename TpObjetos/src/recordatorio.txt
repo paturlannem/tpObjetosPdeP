@@ -1,4 +1,0 @@
-
-- Consultar sobre variable sexo
-- Pasar Diagrama de Clases a digital
-- Revisión del archivo sim.wtest

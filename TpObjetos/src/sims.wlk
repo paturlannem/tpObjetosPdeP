@@ -286,3 +286,9 @@ class Sim{
 		unSim.agregarConocimiento(self)
 	}
 }
+
+class Vim inherits Sim{ 
+	method edad(){
+		return 18
+	}
+}
