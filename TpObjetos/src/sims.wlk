@@ -177,15 +177,25 @@ class Sim{
 	}
 	
 	method ponerEnRelacion(alguien){
-		estadoCivil = new Relacion(alguien, amigos)
-		alguien.estadoCivil(new Relacion(self, alguien.amigos()))
+		if (estadoCivil = soltero) {
+			estadoCivil = new Relacion(alguien, amigos)
+		alguien.estadoCivil(new Relacion(self, alguien.amigos()))	
+		}
+		else
+		 error.throwWithMessage("Ya esta en una relación")
 	}
 	
+	method noEsMenorDe16(unSim)
+		return unSim.edad()>=16
+		}
+	
 	method iniciarRelacionCon(unSim){
+		if (unSim.noEsMenorDe16 && self.noEsMenorDe16) {
 		if (self.meAtraeYLeAtraigo(unSim)){
 			self.ponerEnRelacion(unSim)
 			self.unirAmigos(unSim)
 			unSim.unirAmigos(self)
+		}
 		}	
 	}
 	
@@ -288,6 +298,7 @@ class Sim{
 }
 
 class Vim inherits Sim{ 
+	
 	method edad(){
 		return 18
 	}
