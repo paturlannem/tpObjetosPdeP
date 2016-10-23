@@ -4,7 +4,7 @@ import estadosDeAnimo.*
 import celos.*
 import estadoCivil.*
 import fuentesDeInformacion.*
-import prestamos*
+import prestamos.*
 	
 object hombre {}
 object mujer {}
@@ -185,17 +185,15 @@ class Sim{
 		 error.throwWithMessage("Ya esta en una relación")
 	}
 	
-	method noEsMenorDe16(unSim)
-		return unSim.edad()>=16
-		}
+	method noEsMenorDe16(){
+		return edad >= 16
+	}
 	
 	method iniciarRelacionCon(unSim){
-		if (unSim.noEsMenorDe16 && self.noEsMenorDe16) {
-		if (self.meAtraeYLeAtraigo(unSim)){
+		if (unSim.noEsMenorDe16() && self.noEsMenorDe16() && self.meAtraeYLeAtraigo(unSim)){
 			self.ponerEnRelacion(unSim)
 			self.unirAmigos(unSim)
 			unSim.unirAmigos(self)
-		}
 		}	
 	}
 	
@@ -237,8 +235,12 @@ class Sim{
 		personalidad.trabajar(self)
 	}
 
+	method contieneConocimiento(unConocimiento){
+		return conocimiento.contains(unConocimiento)
+	}
+
 	method agregarConocimiento(unConocimiento){
-		if (!conocimiento.contains(unConocimiento)){
+		if (self.contieneConocimiento(unConocimiento)){
 			conocimiento.add(unConocimiento)
 		}
 	}
@@ -249,6 +251,26 @@ class Sim{
 	
 	method leAgarraAmnesia(){
 		self.conocimiento([])
+	}
+	
+	method difundir(unConocimiento){
+		if (self.contieneConocimiento(unConocimiento)){
+			amigos.map({unAmigo => unAmigo.agregarConocimiento(unConocimiento)})
+		}
+		else{
+			self.agregarConocimiento(unConocimiento)
+		}
+	}
+	
+	method tieneEsteConocimientoPrivado(unConocimiento){
+		return !amigos.any({unAmigo => unAmigo.contieneConocimiento(unConocimiento)})
+	}
+	
+	method difundirChismeSecretoDe(unSim){
+		if (unSim.conocimiento().any({unConocimiento => unSim.tieneEsteConocimientoPrivado(unConocimiento)})){
+			var chisme = unSim.conocimiento().any({unConocimiento => unSim.tieneEsteConocimientoPrivado(unConocimiento)})
+			self.difundir(chisme)
+		}
 	}
 	
 	method esMasRicoQue(unAmigo){
@@ -298,8 +320,7 @@ class Sim{
 }
 
 class Vim inherits Sim{ 
-	
-	method edad(){
-		return 18
-	}
+	constructor(unSexo, unaEdad, unNivelDeFelicidad, amigosDelSim, unaPersonalidad, cantDinero, unSexoDePreferencia) = super(unSexo, unaEdad, unNivelDeFelicidad, amigosDelSim, unaPersonalidad, cantDinero, unSexoDePreferencia){
+		edad = 18
+		}
 }
