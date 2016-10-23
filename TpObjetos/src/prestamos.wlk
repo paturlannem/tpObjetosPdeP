@@ -1,8 +1,4 @@
 import personalidades.*
-import tiposDeTrabajo.*
-import estadosDeAnimo.*
-import celos.*
-import estadoCivil.*
 import sims.*
 	
 class Prestamos {

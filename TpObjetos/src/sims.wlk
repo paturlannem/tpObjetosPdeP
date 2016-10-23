@@ -4,6 +4,7 @@ import estadosDeAnimo.*
 import celos.*
 import estadoCivil.*
 import fuentesDeInformacion.*
+import prestamos*
 	
 object hombre {}
 object mujer {}
