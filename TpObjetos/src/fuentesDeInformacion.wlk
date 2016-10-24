@@ -20,7 +20,7 @@ object mirarProgramaDeTinelli {
 	}
 }
 
-object mirarUnProgramaDeRial {
+object mirarProgramaDeRial {
 	method obtenerInformacionDeFuente(){
 		return "Escandalo"
 	}

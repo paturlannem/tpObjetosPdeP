@@ -23,7 +23,7 @@ class Sim{
 	var estadoDeAnimo = normal
 	var conocimiento = []
 	
-	constructor(unSexo, unaEdad, unNivelDeFelicidad, amigosDelSim, unaPersonalidad, cantDinero, unSexoDePreferencia){
+	constructor(unSexo, unaEdad, unNivelDeFelicidad, amigosDelSim, unaPersonalidad, cantDinero, unSexoDePreferencia, unConocimiento){
 		sexo = unSexo
 		edad = unaEdad
 		nivelDeFelicidad = unNivelDeFelicidad
@@ -31,6 +31,7 @@ class Sim{
 		personalidad = unaPersonalidad
 		dinero = cantDinero
 		sexoDePreferencia = unSexoDePreferencia
+		conocimiento = unConocimiento
 	}
 
 	//GETTERS
@@ -70,6 +71,7 @@ class Sim{
 	method estadoDeAnimo(){
 		return estadoDeAnimo
 	}
+	
 	//SETTERS
 	method dinero(cantDinero){
 		dinero = cantDinero
@@ -318,13 +320,21 @@ class Sim{
 		unaFuente.obtenerInformacionDeFuente()
 		unSim.agregarConocimiento(self)
 	}
+	
+	method cumplirAnios(){
+		return edad += 1
+	}
 }
 
 class Vim inherits Sim{ 
-	constructor(unSexo, unaEdad, unNivelDeFelicidad, amigosDelSim, unaPersonalidad, cantDinero, unSexoDePreferencia) = super(unSexo, unaEdad, unNivelDeFelicidad, amigosDelSim, unaPersonalidad, cantDinero, unSexoDePreferencia){
+	constructor(unSexo, unaEdad, unNivelDeFelicidad, amigosDelSim, unaPersonalidad, cantDinero, unSexoDePreferencia, unConocimiento) = super(unSexo, unaEdad, unNivelDeFelicidad, amigosDelSim, unaPersonalidad, cantDinero, unSexoDePreferencia, unConocimiento){
 		edad = 18
 		}
+		
+	method cumplirAniosDeVim(){
+		return edad
+	}
 }
 
-object mp inherits Sim(hombre, 20, 100, [], buenazo, 0, mujer){}
-object lu inherits Sim(mujer, 18, 90, [], buenazo, 50, hombre){}
+object mp inherits Sim(hombre, 20, 100, [], buenazo, 0, mujer, []){}
+object lu inherits Sim(mujer, 18, 90, [], buenazo, 50, hombre, ["Estuvo con su amigo"]){}

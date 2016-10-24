@@ -4,72 +4,78 @@ import tiposDeTrabajo.*
 import estadosDeAnimo.*
 import celos.*
 import estadoCivil.*
+import fuentesDeInformacion.*
 
 object fixture{
 	
 	method unSimSinAmigos(){
-		return new Sim(hombre, 20, 100, [], buenazo, 0, mujer)
+		return new Sim(hombre, 20, 100, [], buenazo, 0, mujer, [])
 	}
 	
 	method unSimInteresado(){
-		return new Sim(hombre, 32, 60, [], interesado, 100, mujer)
+		return new Sim(hombre, 32, 60, [], interesado, 100, mujer, [])
 	}
 	
 	method unSimBuenazo(){
-		return new Sim(mujer, 18, 90, [], buenazo, 50, hombre)
+		return new Sim(mujer, 18, 90, [], buenazo, 50, hombre, [])
 	}
 	
 	method unSimSuperficial(){
-		return new Sim(mujer, 34, 80, [], superficial, 80, hombre)
+		return new Sim(mujer, 34, 80, [], superficial, 80, hombre, [])
 	}
 	
 	method unSimPeleadoConLaVida(){
-		return new Sim(hombre, 55, 10, [], peleadoConLaVida, 20, mujer)
+		return new Sim(hombre, 55, 10, [], peleadoConLaVida, 20, mujer, [])
 	}
 	
 	method unSimConAmigos(){
-		return new Sim(hombre, 34, 100, [self.unSimSuperficial(), self.unSimBuenazo(), self.unSimSinAmigos(), self.unSimInteresado()], buenazo, 40, mujer)
+		return new Sim(hombre, 34, 100, [self.unSimSuperficial(), self.unSimBuenazo(), self.unSimSinAmigos(), self.unSimInteresado()], buenazo, 40, mujer, [])
 	}
 	
 	method unSimConOtrosAmigos(){
-		return new Sim(mujer, 34, 100, [self.unSimBuenazo()], buenazo, 40, hombre)
+		return new Sim(mujer, 34, 100, [self.unSimBuenazo()], buenazo, 40, hombre, [])
 	}
 	
 	method unSimMasPopularQueSusAmigos(){
-		return new Sim(hombre, 20, 100, [self.unSimSuperficial(), self.unSimSuperficial(), self.unSimSuperficial()], buenazo, 40, mujer)
+		return new Sim(hombre, 20, 100, [self.unSimSuperficial(), self.unSimSuperficial(), self.unSimSuperficial()], buenazo, 40, mujer, [])
 	}
 	
 	method unSimConPopularidad20(){
-		return new Sim(hombre, 55, 10, [self.unSimPeleadoConLaVida(), self.unSimPeleadoConLaVida()], peleadoConLaVida, 20, mujer)
+		return new Sim(hombre, 55, 10, [self.unSimPeleadoConLaVida(), self.unSimPeleadoConLaVida()], peleadoConLaVida, 20, mujer, [])
 	}
 	
 	method unSimConFelicidad100(){
-		return new Sim(hombre, 55, 100, [], buenazo, 20,mujer)
+		return new Sim(hombre, 55, 100, [], buenazo, 20,mujer, [])
 	}
 	
 	method unSimVaronQueLeAtraenMujeres(){
-		return new Sim(hombre, 20, 0, [self.unSimConFelicidad100()], buenazo, 0, mujer)
+		return new Sim(hombre, 20, 0, [self.unSimConFelicidad100()], buenazo, 0, mujer, [])
 	}
 	
 	method unSimMujerQueLeAtraenVarones(){
-		return new Sim(mujer, 20, 0, [], buenazo, 0,hombre)
+		return new Sim(mujer, 20, 0, [], buenazo, 0,hombre, [])
 	}
 	
 	method unSimConPlata(){
-		return new Sim(mujer, 20, 0, [], peleadoConLaVida, 1000000, hombre)
+		return new Sim(mujer, 20, 0, [], peleadoConLaVida, 1000000, hombre, [])
 	}
 	
 	method unSimPobre(){
-		return new Sim(mujer, 20, 0, [], buenazo, 1, hombre)
+		return new Sim(mujer, 20, 0, [], buenazo, 1, hombre, [])
 	}
 	
 	method unSimDeFelicidad199(){
-		return new Sim(mujer, 20, 199, [], buenazo, 1, hombre)
+		return new Sim(mujer, 20, 199, [], buenazo, 1, hombre, [])
 	}
 	
 	method unSimDesempleado(){
-		return new Sim (hombre, 30, 50, [], peleadoConLaVida, 50,mujer)
+		return new Sim (hombre, 30, 50, [], peleadoConLaVida, 50,mujer, [])
 	}
+	
+	method unSimSinConocimientos(){
+		return new Sim (hombre, 15, 10, [], buenazo, 50, mujer, [])
+	}
+
 }
 
 test "Valora bien el amigo interesado"{
@@ -444,4 +450,34 @@ test "Un sim desempleado va a trabajar" {
 	var unSim = fixture.unSimDesempleado()
 	unSim.irATrabajar()
 	assert.equals(50, unSim.nivelDeFelicidad())
+}
+
+test "Un sim gana conocimiento de un libro" {
+	var unSim = fixture.unSimSinConocimientos()
+	var unLibro = libro
+	unLibro.capitulos(["Capitulo random"])
+	unSim.obtenerConocimientoDeFuenteDeInformacion(unLibro, unSim)
+	assert.equals("Capitulo random", unSim.conocimiento())
+}
+
+test "Un sim gana conocimiento de otro sim" {
+	var unSim = fixture.unSimSinConocimientos()
+	var unSimChismoso = simChismoso
+	unSimChismoso.listaDeAmigosDeSimChismoso([lu])
+	unSim.obtenerConocimientoDeFuenteDeInformacion(unSimChismoso, unSim)
+	assert.equals("Estuvo con su amigo", unSim.conocimiento())
+}
+
+test "Un sim gana conocimiento de mirar un programa de Tinelli" {
+	var unSim = fixture.unSimSinConocimientos()
+	var mirarUnProgramaDeTinelli = mirarProgramaDeTinelli
+	unSim.obtenerConocimientoDeFuenteDeInformacion(mirarUnProgramaDeTinelli, unSim)
+	assert.equals("Toto", unSim.conocimiento())
+}
+
+test "Un sim gana conocimiento de mirar un programa de Rial" {
+	var unSim = fixture.unSimSinConocimientos()
+	var mirarUnProgramaDeRial = mirarProgramaDeRial
+	unSim.obtenerConocimientoDeFuenteDeInformacion(mirarUnProgramaDeRial, unSim)
+	assert.equals("Escandalo", unSim.conocimiento())
 }
