@@ -8,6 +8,10 @@ import fuentesDeInformacion.*
 
 object fixture{
 	
+	method unVimBuenazo(){
+		return new Vim(mujer, 18, 30, [], buenazo, 50, hombre, [])
+	}
+	
 	method unSimSinAmigos(){
 		return new Sim(hombre, 20, 100, [], buenazo, 0, mujer, [])
 	}
@@ -480,4 +484,14 @@ test "Un sim gana conocimiento de mirar un programa de Rial" {
 	var mirarUnProgramaDeRial = mirarProgramaDeRial
 	unSim.obtenerConocimientoDeFuenteDeInformacion(mirarUnProgramaDeRial, unSim)
 	assert.equals("Escandalo", unSim.conocimiento())
+}
+
+test "La edad aumenta en los Sims comunes"{
+	var unSim = fixture.unSimConPlata()
+	assert.equals(21, unSim.cumplirAnios())
+}
+
+test "La edad no aumenta en los Vims"{
+	var unVim = fixture.unVimBuenazo()
+	assert.equals(18, unVim.cumplirAniosDeVim())
 }
