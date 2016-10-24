@@ -5,7 +5,11 @@ class Prestamos {
 
 		var valoracionPrestamo		
 		var monto
-
+		
+	method dispuestoAPrestar() {
+		return valoracionPrestamo
+	}
+	
 	method prestamoBase (unSim, unAmigo, cantidad){
 		if (((unAmigo.cantDinero()) > monto) && (monto < valoracionPrestamo) && (unSim.cantDinero() > monto)) {
 			unSim.cantDinero(unAmigo.cantDinero() - monto)
@@ -35,7 +39,12 @@ class Prestamos {
 				valoracionPrestamo = peleadoConLaVida.obtenerValoracionDeAlguien(unAmigo) * 10
 				return self.prestamoBase (unSim, unAmigo, cantidad)
 				}
-				else return "no le presta dinero"
+				else {
+					if(unSim.Personalidad() == interesado){
+						return self.prestamoInteresado(unSim, unAmigo, cantidad)					
+					}
+					else return "no le presta dinero"
+				}
 			}
 		}
 	}
