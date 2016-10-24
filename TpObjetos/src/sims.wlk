@@ -225,8 +225,16 @@ class Sim{
 		tipoDeTrabajo = new Aburrido(600, 200)
 	}
 	
+	method consigueTrabajoAburridoAMuerte(){
+		tipoDeTrabajo = new AburridoHastaLaMuerte(600, 200)
+	}
+	
 	method consigueTrabajoMercenario(){
 		tipoDeTrabajo = new Mercenario()
+	}
+	
+	method consigueTrabajoMercenarioSocial() {
+		tipoDeTrabajo = new MercenarioSocial()
 	}
 	
 	method trabajaConTodosSusAmigos(){

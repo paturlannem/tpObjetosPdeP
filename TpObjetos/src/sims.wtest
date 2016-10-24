@@ -495,3 +495,52 @@ test "La edad no aumenta en los Vims"{
 	var unVim = fixture.unVimBuenazo()
 	assert.equals(18, unVim.cumplirAniosDeVim())
 }
+//dinero
+test "Cantidad de dinero que esta dispuesto a prestar un peleado con la vida" {
+	var unSim = fixture.unSimConPlata()
+	var otroSim = fixture.unSimPobre()
+	unSim.prestamo(unSim, otroSim, 50)
+	assert.equals(0, unSim.dispuestoAPrestar())
+}
+test "Un interesado presta dinero" {
+	var unSim = fixture.unSimInteresado()
+	var otroSim = fixture.unSimConPlata()
+	unSim.prestamo(unSim, otroSim, 70)
+	assert.equals(otroSim.dinero(), 1000070)
+}
+test "Un buenazo presta dinero"{
+	var unSim = fixture.unSimBuenazo()
+	var otroSim = fixture.unSimConPlata()
+	unSim.prestamo(unSim, otroSim, 25)
+	assert.equals(1000025, unSim.dinero())	
+}
+test "Un peleado con la vida presta dinero"{
+	var unSim = fixture.unSimConPlata()
+	var otroSim = fixture.unSimPobre()
+	unSim.prestamo(unSim, otroSim, 50)
+	assert.equals(1, otroSim.dinero())
+}
+test "Un superficial presta dinero" {
+	var unSim = fixture.unSimSuperficial()
+	var otroSim = fixture.unSimPobre()
+	unSim.prestamo(unSim, otroSim, 15)
+	assert.equals(16, otroSim.dinero())
+}
+test "Un sim va a trabajo aburrido hasta la muerte y cambia el estado de animo"{
+	var unSim = fixture.unSimSuperficial()
+	unSim.consigueTrabajoAburridoHastaLaMuerte()
+	unSim.irATrabajar()
+	assert.equals(normal, unSim.estadoDeAnimo())
+}
+test "Un sim va a trabajo mercenario social y cambia el estado de animo"{
+	var unSim = fixture.unSimSuperficial()
+	unSim.consigueTrabajoMercenarioSocial()
+	unSim.irATrabajar()
+	assert.equals(normal, unSim.estadoDeAnimo())
+}
+test "Un Sim desempleado va a trabajar" {
+	var unSim = fixture.unSimDesempleado()
+	unSim.estado(soniador)
+	unSim.irATrabajar()
+	assert.equals(unSim.estado(), soniador)
+}
