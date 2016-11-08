@@ -1,6 +1,10 @@
 import sims.*
 
-object soltero{}
+object soltero{
+	method estaSoltero(){
+		return true
+	}
+}
 
 class Relacion{
 	
@@ -11,6 +15,10 @@ class Relacion{
 		pareja = unaPareja
 		amigosDeSiempre = unosAmigosDeSiempre
 	} 
+	
+	method estaSoltero(){
+		return false
+	}
 	
 	method pareja(){
 		return pareja

@@ -6,8 +6,22 @@ import estadoCivil.*
 import fuentesDeInformacion.*
 import prestamos.*
 	
-object hombre {}
-object mujer {}
+object hombre {
+	method esHombre(){
+		return true
+	}
+	method esMujer(){
+		return false
+	}
+}
+object mujer {
+	method esHombre(){
+		return false
+	}
+	method esMujer(){
+		return true
+	}
+}
 
 
 class Sim{
@@ -179,12 +193,12 @@ class Sim{
 	}
 	
 	method ponerEnRelacion(alguien){
-		if (estadoCivil == soltero){
+		if (estadoCivil.esSoltero()){
 			estadoCivil = new Relacion(alguien, amigos)
 			alguien.estadoCivil(new Relacion(self, alguien.amigos()))	
 		}
 		else{
-		 error.throwWithMessage("Ya esta en una relación")
+		 self.error("Ya esta en una relación.")
 		}
 	}
 	
@@ -193,11 +207,14 @@ class Sim{
 	}
 	
 	method iniciarRelacionCon(unSim){
-		if (unSim.EsMayorDe16() && self.EsMayorDe16() && self.meAtraeYLeAtraigo(unSim)){
+		if (unSim.EsMayorDe16() && self.EsMayorDe16()){
+			if (self.meAtraeYLeAtraigo(unSim)){
 			self.ponerEnRelacion(unSim)
 			self.unirAmigos(unSim)
 			unSim.unirAmigos(self)
+		}
 		}	
+		else self.error("Uno de los dos es menor de edad.")
 	}
 	
 	method leAtraeUnAmigo(){
@@ -335,8 +352,7 @@ class Sim{
 }
 
 class Vim inherits Sim{ 
-	constructor(unSexo, unaEdad, unNivelDeFelicidad, amigosDelSim, unaPersonalidad, cantDinero, unSexoDePreferencia, unConocimiento) = super(unSexo, unaEdad, unNivelDeFelicidad, amigosDelSim, unaPersonalidad, cantDinero, unSexoDePreferencia, unConocimiento){
-		edad = 18
+	constructor(unSexo, unaEdad, unNivelDeFelicidad, amigosDelSim, unaPersonalidad, cantDinero, unSexoDePreferencia, unConocimiento) = super(unSexo, 18, unNivelDeFelicidad, amigosDelSim, unaPersonalidad, cantDinero, unSexoDePreferencia, unConocimiento){
 		}
 		
 	method cumplirAniosDeVim(){
