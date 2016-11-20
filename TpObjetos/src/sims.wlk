@@ -36,6 +36,8 @@ class Sim{
 	var tipoDeTrabajo = new Desocupado()
 	var estadoDeAnimo = normal
 	var conocimiento = []
+	var monto
+	var valoracionPresta
 	
 	constructor(unSexo, unaEdad, unNivelDeFelicidad, amigosDelSim, unaPersonalidad, cantDinero, unSexoDePreferencia, unConocimiento){
 		sexo = unSexo
@@ -348,6 +350,25 @@ class Sim{
 	
 	method cumplirAnios(){
 		return edad += 1
+	}
+	
+	method prestamoBase (unAmigo, cantidad){
+		monto = cantidad
+		if (((unAmigo.dinero()) > monto) && (monto < valoracionPresta) && (self.dinero() > monto)) {
+			self.dinero(unAmigo.dinero() - monto)
+			unAmigo.dinero(unAmigo.dinero() + monto)
+			}
+		return unAmigo.dinero()
+		}
+	method prestamo(unSim, unAmigo, cantidad){
+		return personalidad.prestamo(unSim)
+		}
+	method dispuestoAPrestar() {
+		return valoracionPresta
+		}
+	method valoracionPrestam(unSim, otroSim) {
+		valoracionPresta = personalidad.obtenerValoracionDeAlguien(otroSim) * 10
+		return valoracionPresta		
 	}
 }
 
