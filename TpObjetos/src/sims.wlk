@@ -244,7 +244,7 @@ class Sim{
 	}
 	
 	method consigueTrabajoAburridoAMuerte(){
-		tipoDeTrabajo = new AburridoHastaLaMuerte(600, 200)
+		tipoDeTrabajo = new AburridoHastaLaMuerte(600, 200, 5)
 	}
 	
 	method consigueTrabajoMercenario(){
