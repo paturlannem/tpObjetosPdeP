@@ -68,9 +68,12 @@ class Aburrido inherits TipoDeTrabajo{
 }
 class AburridoHastaLaMuerte inherits Aburrido{
 	var varN = 5
+	constructor (unaCantidadDeDinero, unaCantidadDeFelicidad, n) = super (unaCantidadDeDinero, unaCantidadDeFelicidad) {
+		varN = n
+	}
 		override method pasarUnDiaDeTrabajo(alguien){
 		super(alguien.cambiarFelicidadEn()* varN)
-	}
+	} 
 	method cambioVarN(numero){
 		varN = numero
 	}	
