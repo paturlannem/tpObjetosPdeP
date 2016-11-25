@@ -70,7 +70,6 @@ object peleadoConLaVida{
 	method obtenerValoracionDeAlguien(alguienAValorar){
 			return 0
 	}
-	
 	method leAtraeA(alguien, aEste){
 		return alguien.nivelDeFelicidad() < 200
 	}

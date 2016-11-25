@@ -365,7 +365,7 @@ class Sim{
 	method dispuestoAPrestar() {
 		return valoracionPresta
 		}
-	method valoracionPrestam(unSim, otroSim) {
+	method valoracionPrestamo(unSim, otroSim) {
 		valoracionPresta = personalidad.obtenerValoracionDeAlguien(otroSim) * 10
 		return valoracionPresta		
 	}
